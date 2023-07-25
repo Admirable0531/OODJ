@@ -1,13 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package assignment;
 
-/**
- *
- * @author blaze
- */
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
 public class LoginGUI extends javax.swing.JFrame {
 
     /**
@@ -125,10 +121,38 @@ public class LoginGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_passFieldActionPerformed
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
-        new PMGUI().setVisible(true);
-        dispose();
+        if(authenticateUser(idField.getText(), passField.getText()).equals("NULL")){
+            new AdminGUI().setVisible(true);
+            dispose();
+            
+        }
     }//GEN-LAST:event_loginButtonActionPerformed
+    
+    private String authenticateUser(String userID, String password){
+        String userTxt = "users.txt";
+        try (BufferedReader reader = new BufferedReader(new FileReader(userTxt))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] userData = line.split(", ");
 
+                String storedUsername = userData[0];
+                String storedPassword = userData[1];
+                String role = userData[2];
+
+                if (userID.equals(storedUsername) && password.equals(storedPassword)) {
+                    // User is authenticated
+                    return role;
+                }
+            }
+
+            // User not found or authentication failed
+            return null;
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Handle file reading errors
+            return null;
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField idField;

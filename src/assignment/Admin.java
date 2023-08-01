@@ -53,7 +53,7 @@ public class Admin {
 
         // Display the list of registered users (for demonstration purposes)
         for (User user : users) {
-            System.out.println("Username: " + user.getUsername() + ", Access Type: " + user.getAccessType());
+            System.out.println("Username: " + user.getUsername() + ", Access Type: " + user.getRole());
         }
     }
 }

@@ -11,8 +11,12 @@ public class User {
         
     }
     
-    public String getUserRole() {
+    public String getRole() {
         return role;
+    }
+    
+    public String getUsername() {
+        return username;
     }
     
     

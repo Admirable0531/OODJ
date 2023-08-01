@@ -1,5 +1,5 @@
 package assignment;
 
-public class SalesManager extends User{
+public class SalesManager{
     
 }

@@ -1,4 +1,4 @@
 package assignment;
-public class PurchaseManager extends User{
+public class PurchaseManager{
     
 }

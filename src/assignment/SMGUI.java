@@ -36,7 +36,7 @@ public class SMGUI extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
+        logOut = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -57,10 +57,10 @@ public class SMGUI extends javax.swing.JFrame {
 
         jButton6.setText("List Purchaser Orders");
 
-        jButton8.setText("Log Out");
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
+        logOut.setText("Log Out");
+        logOut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
+                logOutActionPerformed(evt);
             }
         });
 
@@ -73,7 +73,7 @@ public class SMGUI extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton8))
+                        .addComponent(logOut))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(itemEntry)
@@ -101,16 +101,17 @@ public class SMGUI extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jButton6)
                 .addGap(18, 18, 18)
-                .addComponent(jButton8)
+                .addComponent(logOut)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton8ActionPerformed
+    private void logOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutActionPerformed
+        LoginGUI loginGUI = new LoginGUI();
+        dispose();
+    }//GEN-LAST:event_logOutActionPerformed
 
     private void itemEntryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemEntryActionPerformed
         ItemEntry itemEntry = new ItemEntry();
@@ -124,6 +125,6 @@ public class SMGUI extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton8;
+    private javax.swing.JButton logOut;
     // End of variables declaration//GEN-END:variables
 }

@@ -4,13 +4,13 @@ public class Item {
     private String itemCode;
     private String itemName;
     private double price;
-    private int quantity;
+    private String supplier;
 
-    public Item(String itemCode, String itemName, double price, int quantity) {
+    public Item(String itemCode, String itemName, double price, String supplier) {
         this.itemCode = itemCode;
         this.itemName = itemName;
         this.price = price;
-        this.quantity = quantity;
+        this.supplier = supplier;
     }
 
     public String getItemCode() {
@@ -37,17 +37,12 @@ public class Item {
         this.price = price;
     }
 
-    public int getQuantity() {
-        return quantity;
+    public String getSupplier() {
+        return supplier;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    // Method to calculate total price for the item
-    public double calculateTotalPrice() {
-        return price * quantity;
+    public void setSupplier(String supplier) {
+        this.supplier = supplier;
     }
 
     @Override
@@ -56,7 +51,7 @@ public class Item {
                 "itemCode='" + itemCode + '\'' +
                 ", itemName='" + itemName + '\'' +
                 ", price=" + price +
-                ", quantity=" + quantity +
+                ", supplier=" + supplier +
                 '}';
     }
 }

@@ -116,10 +116,14 @@ public class LoginGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_idFieldActionPerformed
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
-        if(authenticateUser(idField.getText(), passField.getText()) != null){
+        String user = authenticateUser(idField.getText(), passField.getText());
+        if(user.equals("Admin")){
             new AdminGUI().setVisible(true);
             dispose();
             
+        } else if(user.equals("SM")) {
+            new SMGUI().setVisible(true);
+            dispose();
         }
     }//GEN-LAST:event_loginButtonActionPerformed
 
@@ -139,14 +143,12 @@ public class LoginGUI extends javax.swing.JFrame {
                 String role = userData[2];
 
                 if (userID.equals(storedUsername) && password.equals(storedPassword)) {
-                    // User is authenticated
                     return role;
-                } else {
-                    JOptionPane.showMessageDialog(this, "LOGIN FAILED", "LOGIN FAILED", JOptionPane.ERROR_MESSAGE);
                 }
             }
 
             // User not found or authentication failed
+            JOptionPane.showMessageDialog(this, "LOGIN FAILED", "LOGIN FAILED", JOptionPane.ERROR_MESSAGE);
             return null;
         } catch (IOException e) {
             e.printStackTrace();

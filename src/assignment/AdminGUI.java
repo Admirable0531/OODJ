@@ -58,6 +58,11 @@ public class AdminGUI extends javax.swing.JFrame {
         purchaseManager.setText("Purchase Manager");
 
         logOutButton.setText("Log Out");
+        logOutButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logOutButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -104,6 +109,11 @@ public class AdminGUI extends javax.swing.JFrame {
         dispose();
         
     }//GEN-LAST:event_salesManagerActionPerformed
+
+    private void logOutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutButtonActionPerformed
+        LoginGUI loginGUI = new LoginGUI();
+        dispose();
+    }//GEN-LAST:event_logOutButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

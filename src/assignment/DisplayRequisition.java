@@ -142,17 +142,17 @@ public class DisplayRequisition extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
-        String newItemCode = Item.getNewCode(itemList);
-        tableModel.addRow(new Object[]{newItemCode, itemName.getText(), itemPrice.getText(), itemSupplier.getSelectedItem()});
-        itemList.add(new Item(newItemCode, itemName.getText(), Double.parseDouble(itemPrice.getText()), itemSupplier.getSelectedItem().toString()));
+    //    String newItemCode = Item.getNewCode(itemList);
+    //    tableModel.addRow(new Object[]{newItemCode, itemName.getText(), itemPrice.getText(), itemSupplier.getSelectedItem()});
+    //    itemList.add(new Item(newItemCode, itemName.getText(), Double.parseDouble(itemPrice.getText()), itemSupplier.getSelectedItem().toString()));
     }//GEN-LAST:event_addActionPerformed
 
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
-        deleteItem();
+    //   deleteItem();
     }//GEN-LAST:event_deleteActionPerformed
 
     private void saveExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveExitActionPerformed
-        saveTableData();
+    //    saveTableData();
     }//GEN-LAST:event_saveExitActionPerformed
 
 

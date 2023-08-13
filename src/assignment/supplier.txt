@@ -1,3 +1,4 @@
-VegeSupply
-MeatSupply
-DrinkSupply
+S0001, VegeSupply, 0003333313
+S0002, MeatSupply, 31231303023
+S0003, DrinkSupply, 0303030302
+S0004, EggSupply, 98575473

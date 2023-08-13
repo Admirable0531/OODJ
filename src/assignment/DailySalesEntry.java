@@ -8,12 +8,12 @@ package assignment;
  *
  * @author theli
  */
-public class DailySales extends javax.swing.JFrame {
+public class DailySalesEntry extends javax.swing.JFrame {
 
     /**
      * Creates new form DailySales
      */
-    public DailySales() {
+    public DailySalesEntry() {
         initComponents();
     }
 
@@ -142,17 +142,17 @@ public class DailySales extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void saveExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveExitActionPerformed
-        saveTableData();
+    //    saveTableData();
     }//GEN-LAST:event_saveExitActionPerformed
 
     private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
-        String newItemCode = Item.getNewCode(itemList);
-        tableModel.addRow(new Object[]{newItemCode, itemName.getText(), itemPrice.getText(), itemSupplier.getSelectedItem()});
-        itemList.add(new Item(newItemCode, itemName.getText(), Double.parseDouble(itemPrice.getText()), itemSupplier.getSelectedItem().toString()));
+    //    String newItemCode = Item.getNewCode(itemList);
+    //    tableModel.addRow(new Object[]{newItemCode, itemName.getText(), itemPrice.getText(), itemSupplier.getSelectedItem()});
+    //    itemList.add(new Item(newItemCode, itemName.getText(), Double.parseDouble(itemPrice.getText()), itemSupplier.getSelectedItem().toString()));
     }//GEN-LAST:event_addActionPerformed
 
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
-        deleteItem();
+    //    deleteItem();
     }//GEN-LAST:event_deleteActionPerformed
 
 

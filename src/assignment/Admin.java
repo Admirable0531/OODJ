@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Admin {
+public class Admin{
     private String username;
     private String password;
     

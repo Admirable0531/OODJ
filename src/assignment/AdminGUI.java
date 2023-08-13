@@ -32,7 +32,6 @@ public class AdminGUI extends javax.swing.JFrame {
     private void initComponents() {
 
         addUser = new javax.swing.JButton();
-        editUser = new javax.swing.JButton();
         salesManager = new javax.swing.JButton();
         purchaseManager = new javax.swing.JButton();
         logOutButton = new javax.swing.JButton();
@@ -45,8 +44,6 @@ public class AdminGUI extends javax.swing.JFrame {
                 addUserActionPerformed(evt);
             }
         });
-
-        editUser.setText("Edit User");
 
         salesManager.setText("Sales Manager");
         salesManager.addActionListener(new java.awt.event.ActionListener() {
@@ -71,14 +68,15 @@ public class AdminGUI extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(addUser)
-                    .addComponent(editUser)
-                    .addComponent(salesManager)
-                    .addComponent(purchaseManager))
-                .addContainerGap(267, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(logOutButton)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(addUser)
+                            .addComponent(salesManager)
+                            .addComponent(purchaseManager))
+                        .addGap(0, 261, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(logOutButton)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -86,13 +84,11 @@ public class AdminGUI extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addComponent(addUser)
-                .addGap(30, 30, 30)
-                .addComponent(editUser)
-                .addGap(37, 37, 37)
+                .addGap(18, 18, 18)
                 .addComponent(salesManager)
-                .addGap(36, 36, 36)
+                .addGap(18, 18, 18)
                 .addComponent(purchaseManager)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 139, Short.MAX_VALUE)
                 .addComponent(logOutButton)
                 .addContainerGap())
         );
@@ -101,7 +97,7 @@ public class AdminGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addUserActionPerformed
-        // TODO add your handling code here:
+        new UserRegistrationGUI().setVisible(true);
     }//GEN-LAST:event_addUserActionPerformed
 
     private void salesManagerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salesManagerActionPerformed
@@ -118,7 +114,6 @@ public class AdminGUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addUser;
-    private javax.swing.JButton editUser;
     private javax.swing.JButton logOutButton;
     private javax.swing.JButton purchaseManager;
     private javax.swing.JButton salesManager;

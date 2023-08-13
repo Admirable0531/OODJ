@@ -6,11 +6,6 @@ import java.util.ArrayList;
 public class ItemEntry extends javax.swing.JFrame {
     private JTable itemTable;
     private DefaultTableModel tableModel;
-    private String itemCode;
-    private String name;
-    private double price;
-    private String supplier;
-    private ArrayList<String> supplierList;
     private ArrayList<Item> itemList = Item.loadItems();
     
 
@@ -21,7 +16,6 @@ public class ItemEntry extends javax.swing.JFrame {
     public ItemEntry() {
         initComponents();
         initCombo();
-        System.out.println(itemList);
         initializeTable(itemList);
         setTitle("Available Items");
         setLocationRelativeTo(null);
@@ -66,7 +60,7 @@ public class ItemEntry extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        itemSupplier = new javax.swing.JComboBox<>();
+        itemSupplierBox = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -128,10 +122,10 @@ public class ItemEntry extends javax.swing.JFrame {
 
         jLabel5.setText("Supplier");
 
-        itemSupplier.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        itemSupplier.addActionListener(new java.awt.event.ActionListener() {
+        itemSupplierBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        itemSupplierBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemSupplierActionPerformed(evt);
+                itemSupplierBoxActionPerformed(evt);
             }
         });
 
@@ -161,7 +155,7 @@ public class ItemEntry extends javax.swing.JFrame {
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                         .addComponent(itemPrice, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE)
                                         .addComponent(itemName, javax.swing.GroupLayout.Alignment.LEADING))
-                                    .addComponent(itemSupplier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(itemSupplierBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
@@ -195,7 +189,7 @@ public class ItemEntry extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(itemSupplier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(itemSupplierBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
@@ -206,9 +200,9 @@ public class ItemEntry extends javax.swing.JFrame {
         saveTableData();
     }//GEN-LAST:event_saveExitActionPerformed
 
-    private void itemSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemSupplierActionPerformed
+    private void itemSupplierBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemSupplierBoxActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_itemSupplierActionPerformed
+    }//GEN-LAST:event_itemSupplierBoxActionPerformed
 
     private void itemNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemNameActionPerformed
         // TODO add your handling code here:
@@ -216,8 +210,8 @@ public class ItemEntry extends javax.swing.JFrame {
 
     private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
         String newItemCode = Item.getNewCode(itemList);
-        tableModel.addRow(new Object[]{newItemCode, itemName.getText(), itemPrice.getText(), itemSupplier.getSelectedItem()});
-        itemList.add(new Item(newItemCode, itemName.getText(), Double.parseDouble(itemPrice.getText()), itemSupplier.getSelectedItem().toString()));
+        tableModel.addRow(new Object[]{newItemCode, itemName.getText(), itemPrice.getText(), itemSupplierBox.getSelectedItem()});
+        itemList.add(new Item(newItemCode, itemName.getText(), Double.parseDouble(itemPrice.getText()), itemSupplierBox.getSelectedItem().toString()));
     }//GEN-LAST:event_addActionPerformed
 
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
@@ -263,10 +257,13 @@ public class ItemEntry extends javax.swing.JFrame {
         dispose();
     }
 
-        private void initCombo(){
-        DefaultComboBoxModel<String> suppliersList = new DefaultComboBoxModel<>(Supplier.getSuppliers().toArray(new String[0]));
- 
-        itemSupplier.setModel(suppliersList);
+    private void initCombo(){
+        ArrayList<Supplier> supplierList = Supplier.loadSuppliers();
+        DefaultComboBoxModel<String> comboBoxModel = new DefaultComboBoxModel<>();
+        for (Supplier supplier : supplierList) {
+            comboBoxModel.addElement(supplier.getSupplierCode());
+        }
+        itemSupplierBox.setModel(comboBoxModel);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -274,7 +271,7 @@ public class ItemEntry extends javax.swing.JFrame {
     private javax.swing.JButton delete;
     private javax.swing.JTextField itemName;
     private javax.swing.JTextField itemPrice;
-    private javax.swing.JComboBox<String> itemSupplier;
+    private javax.swing.JComboBox<String> itemSupplierBox;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

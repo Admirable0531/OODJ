@@ -22,8 +22,8 @@ public class Admin {
 
     // Method to register a new user
     public void registerUser(String username, String password, String role) {
-        User newUser = new User(username, password, role);
-        users.add(newUser);
+//        User newUser = new User(username, password, role);
+//        users.add(newUser);
         saveUserDetailsToFile(); // Save the updated user details to a file
     }
 

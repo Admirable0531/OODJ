@@ -120,9 +120,11 @@ public class LoginGUI extends javax.swing.JFrame {
         if(user.equals("Admin")){
             new AdminGUI().setVisible(true);
             dispose();
-            
         } else if(user.equals("SM")) {
             new SMGUI().setVisible(true);
+            dispose();
+        } else if(user.equals("PM")) {
+            new PMGUI().setVisible(true);
             dispose();
         }
     }//GEN-LAST:event_loginButtonActionPerformed

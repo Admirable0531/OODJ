@@ -108,9 +108,6 @@ public class SMGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_logOutActionPerformed
 
     private void itemEntryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemEntryActionPerformed
-//        itemList.add(new Item("001", "Item 1", 10.99, 50));
-//        itemList.add(new Item("002", "Item 2", 15.50, 30));
-//        itemList.add(new Item("003", "Item 3", 8.75, 20));
         new ItemEntry().setVisible(true);
     }//GEN-LAST:event_itemEntryActionPerformed
 

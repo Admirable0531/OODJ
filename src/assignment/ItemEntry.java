@@ -215,16 +215,11 @@ public class ItemEntry extends javax.swing.JFrame {
     }//GEN-LAST:event_addActionPerformed
 
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
-        deleteItem();
-    }//GEN-LAST:event_deleteActionPerformed
-
-    private void deleteItem() {
         int selectedRow = jTable1.getSelectedRow();
         tableModel.removeRow(selectedRow);
         itemList.remove(selectedRow);
-        System.out.println(itemList);
-        
-    }
+    }//GEN-LAST:event_deleteActionPerformed
+
     
     private void saveTableData() {
         int numRows = jTable1.getRowCount();

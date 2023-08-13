@@ -8,14 +8,21 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+import java.util.Enumeration;
 
 public class UserRegistrationGUI extends javax.swing.JFrame {
+    private JTable userTable;
+    private DefaultTableModel tableModel;
+    private ArrayList<User> userList = User.loadUsers();
 
     /**
      * Creates new form UserRegistrationGUI
      */
     public UserRegistrationGUI() {
         initComponents();
+        initializeTable(userList);
         setTitle("User Registration");
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -35,13 +42,13 @@ public class UserRegistrationGUI extends javax.swing.JFrame {
         sm = new javax.swing.JRadioButton();
         pm = new javax.swing.JRadioButton();
         add = new javax.swing.JButton();
-        cancel = new javax.swing.JButton();
+        save = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        nameField = new javax.swing.JTextField();
+        name = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        delete = new javax.swing.JButton();
+        pass = new javax.swing.JPasswordField();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -50,10 +57,10 @@ public class UserRegistrationGUI extends javax.swing.JFrame {
         admin.setText("Admin");
 
         role.add(sm);
-        sm.setText("Sales Manager");
+        sm.setText("SM");
 
         role.add(pm);
-        pm.setText("Purchase Manager");
+        pm.setText("PM");
 
         add.setText("Add");
         add.addActionListener(new java.awt.event.ActionListener() {
@@ -62,14 +69,20 @@ public class UserRegistrationGUI extends javax.swing.JFrame {
             }
         });
 
-        cancel.setText("Save and Exit");
-        cancel.addActionListener(new java.awt.event.ActionListener() {
+        save.setText("Save and Exit");
+        save.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cancelActionPerformed(evt);
+                saveActionPerformed(evt);
             }
         });
 
         jLabel1.setText("Name");
+
+        name.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nameActionPerformed(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -79,12 +92,23 @@ public class UserRegistrationGUI extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Code", "Password", "Role", "Name"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        jButton1.setText("Delete");
+        delete.setText("Delete");
+        delete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteActionPerformed(evt);
+            }
+        });
+
+        pass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                passActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Password");
 
@@ -104,23 +128,23 @@ public class UserRegistrationGUI extends javax.swing.JFrame {
                         .addGap(15, 15, 15)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(add)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton1)))
+                        .addComponent(delete)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2))
-                        .addGap(18, 18, 18)
+                            .addComponent(jLabel2)
+                            .addComponent(pass, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 476, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(cancel)))
+                        .addComponent(save)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -134,8 +158,8 @@ public class UserRegistrationGUI extends javax.swing.JFrame {
                             .addComponent(jLabel2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(pass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(37, 37, 37)
                         .addComponent(admin)
                         .addGap(18, 18, 18)
@@ -147,39 +171,102 @@ public class UserRegistrationGUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(add)
-                    .addComponent(cancel)
-                    .addComponent(jButton1))
+                    .addComponent(save)
+                    .addComponent(delete))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cancelActionPerformed
+    private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
+        saveTableData();
+    }//GEN-LAST:event_saveActionPerformed
 
     private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
-    ButtonModel selectedButton = role.getSelection();
-    if (selectedButton.getActionCommand().equals( "Admin")) {
-        
-    }
-    
+        JRadioButton selectedRadioButton = null;
+        if (admin.isSelected()) {
+            selectedRadioButton = admin;
+        } else if (sm.isSelected()) {
+            selectedRadioButton = sm;
+        } else if (pm.isSelected()) {
+            selectedRadioButton = pm;
+        }
+        String newUserCode = User.getNewCode(userList);
+        tableModel.addRow(new Object[]{newUserCode, pass.getText(), selectedRadioButton.getText(), name.getText()});
+        userList.add(new User(newUserCode, pass.getText(), selectedRadioButton.getText(), name.getText()));
     }//GEN-LAST:event_addActionPerformed
 
+    private void nameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nameActionPerformed
+
+    private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
+        int selectedRow = jTable1.getSelectedRow();
+        tableModel.removeRow(selectedRow);
+        userList.remove(selectedRow);
+    }//GEN-LAST:event_deleteActionPerformed
+
+    private void passActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_passActionPerformed
+
+
+    private void initializeTable(ArrayList<User> userList) {
+        // Create the table model with column headers
+        String[] columnHeaders = {"Code", "Password", "Role", "Name"};
+        tableModel = new DefaultTableModel(columnHeaders, 0);
+
+        // Populate the table model with item data
+        for (User user : userList) {
+            Object[] rowData = {user.getUserCode(), user.getPassword(), user.getRole(), user.getUsername()};
+            tableModel.addRow(rowData);
+        }
+
+        // Set the table model for the JTable
+        jTable1.setModel(tableModel);
+
+    }
+    
+    private void saveTableData() {
+        int numRows = jTable1.getRowCount();
+
+        for (int row = 0; row < numRows; row++) {
+            String userCode = (String) jTable1.getValueAt(row, 0);
+            String userPass = (String) jTable1.getValueAt(row, 1);
+            String userRole = (String) jTable1.getValueAt(row, 2);
+            String userName = (String) jTable1.getValueAt(row, 3);
+
+            // Find the corresponding Item object in the itemList based on itemCode
+            for (User user : userList) {
+                if (user.getUserCode().equals(userCode)) {
+                    // Update the Item object with the edited values
+                    user.setUserCode(userCode);
+                    user.setPassword(userPass);
+                    user.setRole(userRole);
+                    user.setUsername(userName);
+                    break;
+                }
+            }
+        }
+        User.saveToFile(userList);
+        JOptionPane.showMessageDialog(this, "Changes saved successfully.");
+        dispose();
+    }
+        
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton add;
     private javax.swing.JRadioButton admin;
-    private javax.swing.JButton cancel;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton delete;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField nameField;
+    private javax.swing.JTextField name;
+    private javax.swing.JPasswordField pass;
     private javax.swing.JRadioButton pm;
     private javax.swing.ButtonGroup role;
+    private javax.swing.JButton save;
     private javax.swing.JRadioButton sm;
     // End of variables declaration//GEN-END:variables
 }

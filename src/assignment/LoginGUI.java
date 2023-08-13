@@ -13,6 +13,7 @@ public class LoginGUI extends javax.swing.JFrame {
     public LoginGUI() {
         initComponents();
         setLocationRelativeTo(null);
+        setTitle("Login");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
     }
@@ -26,7 +27,6 @@ public class LoginGUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
         loginButton = new javax.swing.JButton();
         idField = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -34,8 +34,6 @@ public class LoginGUI extends javax.swing.JFrame {
         passField = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jLabel1.setText("Login");
 
         loginButton.setText("Login");
         loginButton.addActionListener(new java.awt.event.ActionListener() {
@@ -64,10 +62,6 @@ public class LoginGUI extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(146, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -91,9 +85,7 @@ public class LoginGUI extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(21, 257, Short.MAX_VALUE)
                 .addComponent(loginButton)
                 .addGap(20, 20, 20))
             .addGroup(layout.createSequentialGroup()
@@ -116,7 +108,7 @@ public class LoginGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_idFieldActionPerformed
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
-        String user = authenticateUser(idField.getText(), passField.getText());
+        String user = User.authenticateUser(idField.getText(), passField.getText());
         if(user.equals("Admin")){
             new AdminGUI().setVisible(true);
             dispose();
@@ -132,37 +124,10 @@ public class LoginGUI extends javax.swing.JFrame {
     private void passFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_passFieldActionPerformed
-    
-    private String authenticateUser(String userID, String password){
-        String userTxt = "src\\assignment\\users.txt";
-        try (BufferedReader reader = new BufferedReader(new FileReader(userTxt))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] userData = line.split(", ");
 
-                String storedUsername = userData[0];
-                String storedPassword = userData[1];
-                String role = userData[2];
-
-                if (userID.equals(storedUsername) && password.equals(storedPassword)) {
-                    return role;
-                }
-            }
-
-            // User not found or authentication failed
-            JOptionPane.showMessageDialog(this, "LOGIN FAILED", "LOGIN FAILED", JOptionPane.ERROR_MESSAGE);
-            return null;
-        } catch (IOException e) {
-            e.printStackTrace();
-            // Handle file reading errors
-            return null;
-        }
-        
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField idField;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JButton loginButton;

@@ -14,7 +14,7 @@ public class User {
     private String role;
     private static ArrayList<User> userList;
     
-    public User(String userCode, String username, String password, String role) {
+    public User(String userCode, String password, String role, String username) {
         this.userCode = userCode;
         this.username = username;
         this.password = password;
@@ -34,12 +34,24 @@ public class User {
         return role;
     }
     
+    public void setRole(String role) {
+        this.role = role;
+    }
+    
     public String getUsername() {
         return username;
     }
     
+    public void setUsername(String username) {
+        this.username = username;
+    }
+    
     public String getPassword() {
         return password;
+    }
+    
+    public void setPassword(String password) {
+        this.password = password;
     }
     
     public static ArrayList loadUsers(){
@@ -51,10 +63,10 @@ public class User {
                 String[] userData = line.split(", ");
 
                 String userCodeLoad = userData[0];
-                String usernameLoad = userData[1];
-                String passwordLoad = userData[2];
-                String roleLoad = userData[3];
-                User user = new User(userCodeLoad, usernameLoad, passwordLoad, roleLoad);
+                String passwordLoad = userData[1];
+                String roleLoad = userData[2];
+                String usernameLoad = userData[3];
+                User user = new User(userCodeLoad, passwordLoad, roleLoad, usernameLoad);
                 userList.add(user);
         }
 
@@ -74,7 +86,7 @@ public class User {
     public static void saveToFile(ArrayList<User> userList) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("src\\assignment\\users.txt"))) {
             for (User user : userList) {
-                String line = user.getUserCode() + ", " + user.getUsername() + ", " + user.getPassword() + ", " + user.getRole();
+                String line = user.getUserCode() + ", " + user.getPassword() + ", " + user.getRole() + ", " + user.getUsername();
                 writer.write(line);
                 writer.newLine();
             }
@@ -95,6 +107,33 @@ public class User {
         
         // Combine the first character 'I' with the formatted incremented value
         return "U" + formattedIncrementedValue;
+    }
+    
+    public static String authenticateUser(String userID, String password){
+        String userTxt = "src\\assignment\\users.txt";
+        try (BufferedReader reader = new BufferedReader(new FileReader(userTxt))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] userData = line.split(", ");
+
+                String storedUsername = userData[0];
+                String storedPassword = userData[1];
+                String role = userData[2];
+                String name = userData[3];
+
+                if (userID.equals(storedUsername) && password.equals(storedPassword)) {
+                    return role;
+                }
+            }
+
+            // User not found or authentication failed
+            return null;
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Handle file reading errors
+            return null;
+        }
+        
     }
     
     @Override

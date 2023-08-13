@@ -20,13 +20,6 @@ public class Admin{
         this.password = password;
     }
 
-    // Method to register a new user
-    public void registerUser(String username, String password, String role) {
-//        User newUser = new User(username, password, role);
-//        users.add(newUser);
-        saveUserDetailsToFile(); // Save the updated user details to a file
-    }
-
     // Method to save user details to a file
     private void saveUserDetailsToFile() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("user_details.txt"))) {

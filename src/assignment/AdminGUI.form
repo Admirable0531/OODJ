@@ -80,6 +80,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Purchase Manager"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="purchaseManagerActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="logOutButton">
       <Properties>

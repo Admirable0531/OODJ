@@ -12,13 +12,15 @@ public class Item {
     private String itemName;
     private double price;
     private String supplier;
+    private int stock;
     private static ArrayList<Item> itemList;
 
-    public Item(String itemCode, String itemName, double price, String supplier) {
+    public Item(String itemCode, String itemName, double price, String supplier, int stock) {
         this.itemCode = itemCode;
         this.itemName = itemName;
         this.price = price;
         this.supplier = supplier;
+        this.stock = stock;
     }
 
     public String getItemCode() {
@@ -53,6 +55,14 @@ public class Item {
         this.supplier = supplier;
     }
     
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
+    }
+    
     public static String getNewCode(ArrayList<Item> itemList){
         String newCode = incrementString(itemList.get(itemList.size() - 1).itemCode);
         return newCode;
@@ -70,7 +80,8 @@ public class Item {
                 String itemNameLoad = itemData[1];
                 double priceLoad = Double.parseDouble(itemData[2]);
                 String supplierLoad = itemData[3];
-                Item item = new Item(itemCodeLoad, itemNameLoad, priceLoad, supplierLoad);
+                int stockLoad = Integer.parseInt(itemData[4]);
+                Item item = new Item(itemCodeLoad, itemNameLoad, priceLoad, supplierLoad, stockLoad);
                 itemList.add(item);
         }
 
@@ -85,7 +96,7 @@ public class Item {
     public static void saveToFile(ArrayList<Item> itemList) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("src\\assignment\\items.txt"))) {
             for (Item item : itemList) {
-                String line = item.getItemCode() + ", " + item.getItemName() + ", " + item.getPrice() + ", " + item.getSupplier();
+                String line = item.getItemCode() + ", " + item.getItemName() + ", " + item.getPrice() + ", " + item.getSupplier() + ", " + item.getStock();
                 writer.write(line);
                 writer.newLine();
             }
@@ -95,16 +106,9 @@ public class Item {
     }
     
     public static String incrementString(String input) {
-        // Extract numeric part from the input string
-        String numericPart = input.substring(1); // Exclude the first character 'I'
-        
-        // Parse the numeric part as an integer and increment it
+        String numericPart = input.substring(1); 
         int incrementedValue = Integer.parseInt(numericPart) + 1;
-        
-        // Format the incremented value back into the original format
         String formattedIncrementedValue = String.format("%04d", incrementedValue);
-        
-        // Combine the first character 'I' with the formatted incremented value
         return "I" + formattedIncrementedValue;
     }
     
@@ -115,6 +119,7 @@ public class Item {
                 ", itemName='" + itemName + '\'' +
                 ", price=" + price +
                 ", supplier=" + supplier +
+                ", stock=" + stock +
                 '}';
     }
 }

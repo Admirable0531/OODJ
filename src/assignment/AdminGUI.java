@@ -17,7 +17,7 @@ public class AdminGUI extends javax.swing.JFrame {
         initComponents();
         setTitle("Admin Panel");
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setVisible(true);
     }
 
@@ -53,6 +53,11 @@ public class AdminGUI extends javax.swing.JFrame {
         });
 
         purchaseManager.setText("Purchase Manager");
+        purchaseManager.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                purchaseManagerActionPerformed(evt);
+            }
+        });
 
         logOutButton.setText("Log Out");
         logOutButton.addActionListener(new java.awt.event.ActionListener() {
@@ -110,6 +115,11 @@ public class AdminGUI extends javax.swing.JFrame {
         LoginGUI loginGUI = new LoginGUI();
         dispose();
     }//GEN-LAST:event_logOutButtonActionPerformed
+
+    private void purchaseManagerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_purchaseManagerActionPerformed
+        new PMGUI().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_purchaseManagerActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

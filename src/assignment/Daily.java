@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package assignment;
 
 /**
@@ -21,11 +17,11 @@ public class Daily {
         this.item = item;
     }
 
-    public int getQuantitySold() {
+    public int getQuantity() {
         return quantitySold;
     }
 
-    public void setQuantitySold(int quantitySold) {
+    public void setQuantity(int quantitySold) {
         this.quantitySold = quantitySold;
     }
 

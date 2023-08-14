@@ -1,5 +1,5 @@
 U0000, admin, Admin, Ryan
 U0001, sm, SM, Ryan
-U0002, admin, PM, Ryan
+U0002, pm, PM, Ryan
 U0004, markSM, SM, Mark
 U0005, jackpm, PM, Jack

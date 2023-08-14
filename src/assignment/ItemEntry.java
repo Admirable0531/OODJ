@@ -31,12 +31,12 @@ public class ItemEntry extends javax.swing.JFrame {
     
     private void initializeTable(ArrayList<Item> itemList) {
         // Create the table model with column headers
-        String[] columnHeaders = {"Item Code", "Item Name", "Price", "Supplier"};
+        String[] columnHeaders = {"Item Code", "Item Name", "Price", "Supplier", "Stock"};
         tableModel = new DefaultTableModel(columnHeaders, 0);
 
         // Populate the table model with item data
         for (Item item : itemList) {
-            Object[] rowData = {item.getItemCode(), item.getItemName(), item.getPrice(), item.getSupplier()};
+            Object[] rowData = {item.getItemCode(), item.getItemName(), item.getPrice(), item.getSupplier(), item.getStock()};
             tableModel.addRow(rowData);
         }
 
@@ -61,6 +61,8 @@ public class ItemEntry extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         itemSupplierBox = new javax.swing.JComboBox<>();
+        stock = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -73,17 +75,17 @@ public class ItemEntry extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Code", "Name", "Price", "Quantity"
+                "Code", "Name", "Price", "Quantity", "Stock"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -129,14 +131,16 @@ public class ItemEntry extends javax.swing.JFrame {
             }
         });
 
+        jLabel6.setText("Stock");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
                         .addComponent(add)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(delete)
@@ -144,19 +148,18 @@ public class ItemEntry extends javax.swing.JFrame {
                         .addComponent(saveExit))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 253, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel4)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(itemPrice, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE)
-                                        .addComponent(itemName, javax.swing.GroupLayout.Alignment.LEADING))
-                                    .addComponent(itemSupplierBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(itemPrice, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE)
+                                .addComponent(itemName, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addComponent(jLabel6)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(stock, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(itemSupplierBox, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 476, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -189,7 +192,11 @@ public class ItemEntry extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(itemSupplierBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(itemSupplierBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel6)
+                        .addGap(18, 18, 18)
+                        .addComponent(stock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
@@ -210,8 +217,8 @@ public class ItemEntry extends javax.swing.JFrame {
 
     private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
         String newItemCode = Item.getNewCode(itemList);
-        tableModel.addRow(new Object[]{newItemCode, itemName.getText(), itemPrice.getText(), itemSupplierBox.getSelectedItem()});
-        itemList.add(new Item(newItemCode, itemName.getText(), Double.parseDouble(itemPrice.getText()), itemSupplierBox.getSelectedItem().toString()));
+        tableModel.addRow(new Object[]{newItemCode, itemName.getText(), itemPrice.getText(), itemSupplierBox.getSelectedItem(), stock.getText()});
+        itemList.add(new Item(newItemCode, itemName.getText(), Double.parseDouble(itemPrice.getText()), itemSupplierBox.getSelectedItem().toString(),Integer.parseInt(stock.getText())));
     }//GEN-LAST:event_addActionPerformed
 
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
@@ -235,6 +242,13 @@ public class ItemEntry extends javax.swing.JFrame {
                 price = 0.0; // or any default value
             }
             String supplier = (String) jTable1.getValueAt(row, 3);
+            int stock;
+            try {
+                stock = Integer.parseInt(jTable1.getValueAt(row, 4).toString());
+            } catch (NumberFormatException e) {
+                // Handle invalid price format, e.g., show a warning message or set a default value
+                stock = 0; // or any default value
+            }
 
             // Find the corresponding Item object in the itemList based on itemCode
             for (Item item : itemList) {
@@ -243,6 +257,7 @@ public class ItemEntry extends javax.swing.JFrame {
                     item.setItemName(itemName);
                     item.setPrice(price);
                     item.setSupplier(supplier);
+                    item.setStock(stock);
                     break;
                 }
             }
@@ -272,8 +287,10 @@ public class ItemEntry extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JButton saveExit;
+    private javax.swing.JTextField stock;
     // End of variables declaration//GEN-END:variables
 }

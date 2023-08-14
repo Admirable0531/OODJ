@@ -110,12 +110,15 @@ public class LoginGUI extends javax.swing.JFrame {
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
         String user = User.authenticateUser(idField.getText(), passField.getText());
         if(user.equals("Admin")){
+            User.setCurrentUser(idField.getText());
             new AdminGUI().setVisible(true);
             dispose();
         } else if(user.equals("SM")) {
+            User.setCurrentUser(idField.getText());
             new SMGUI().setVisible(true);
             dispose();
         } else if(user.equals("PM")) {
+            User.setCurrentUser(idField.getText());
             new PMGUI().setVisible(true);
             dispose();
         }

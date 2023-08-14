@@ -12,6 +12,7 @@ public class User {
     private String username;
     private String password;
     private String role;
+    private static String currentUser;
     private static ArrayList<User> userList;
     
     public User(String userCode, String password, String role, String username) {
@@ -134,6 +135,15 @@ public class User {
             return null;
         }
         
+    }
+    
+    public static void setCurrentUser(String userID) {
+        currentUser = userID;
+    }
+
+    // Get the current user
+    public static String getCurrentUser() {
+        return currentUser;
     }
     
     @Override

@@ -22,7 +22,8 @@ public class UserRegistrationGUI extends javax.swing.JFrame {
      */
     public UserRegistrationGUI() {
         initComponents();
-        jTable1.setModel(User.initializeTable(userList));
+        tableModel = User.initializeTable(userList);
+        jTable1.setModel(tableModel);
         setTitle("User Registration");
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -180,7 +181,9 @@ public class UserRegistrationGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
-        saveTableData();
+        User.saveTableData(jTable1, userList);
+        JOptionPane.showMessageDialog(this, "Changes saved successfully.");
+        dispose();
     }//GEN-LAST:event_saveActionPerformed
 
     private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
@@ -211,32 +214,7 @@ public class UserRegistrationGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_passActionPerformed
     
-    private void saveTableData() {
-        int numRows = jTable1.getRowCount();
 
-        for (int row = 0; row < numRows; row++) {
-            String userCode = (String) jTable1.getValueAt(row, 0);
-            String userPass = (String) jTable1.getValueAt(row, 1);
-            String userRole = (String) jTable1.getValueAt(row, 2);
-            String userName = (String) jTable1.getValueAt(row, 3);
-
-            // Find the corresponding Item object in the itemList based on itemCode
-            for (User user : userList) {
-                if (user.getUserCode().equals(userCode)) {
-                    // Update the Item object with the edited values
-                    user.setUserCode(userCode);
-                    user.setPassword(userPass);
-                    user.setRole(userRole);
-                    user.setUsername(userName);
-                    break;
-                }
-            }
-        }
-        User.saveToFile(userList);
-        JOptionPane.showMessageDialog(this, "Changes saved successfully.");
-        dispose();
-    }
-        
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton add;
     private javax.swing.JRadioButton admin;

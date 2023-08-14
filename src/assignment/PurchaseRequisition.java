@@ -10,6 +10,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -134,6 +135,38 @@ public class PurchaseRequisition {
             tableModel.addRow(rowData);
         }
         return tableModel;
+    }
+    
+    public static void saveTableData(JTable jTable1, ArrayList<PurchaseRequisition> prList) {
+        int numRows = jTable1.getRowCount();
+
+        for (int row = 0; row < numRows; row++) {
+            String prCode = (String) jTable1.getValueAt(row, 0);
+            String itemCode = (String) jTable1.getValueAt(row, 1);
+            int quantity;
+            try {
+                quantity = Integer.parseInt(jTable1.getValueAt(row, 2).toString());
+            } catch (NumberFormatException e) {
+                // Handle invalid price format, e.g., show a warning message or set a default value
+                quantity = 0; // or any default value
+            }
+            String date = (String) jTable1.getValueAt(row, 3);
+            String smID = (String) jTable1.getValueAt(row, 4);
+
+            // Find the corresponding Item object in the itemList based on itemCode
+            for (PurchaseRequisition pr : prList) {
+                if (pr.getPrCode().equals(prCode)) {
+                    // Update the Item object with the edited values
+                    pr.setPrCode(prCode);
+                    pr.setItemCode(itemCode);
+                    pr.setQuantity(quantity);
+                    pr.setDateRequired(date);
+                    pr.setSmID(smID);
+                    break;
+                }
+            }
+        }
+        PurchaseRequisition.saveToFile(prList);
     }
     
 }

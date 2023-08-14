@@ -21,7 +21,8 @@ public class GenerateRequisition extends javax.swing.JFrame {
     public GenerateRequisition() {
         initComponents();
         initCombo();
-        jTable1.setModel(PurchaseRequisition.initializeTable(prList));
+        tableModel = PurchaseRequisition.initializeTable(prList);
+        jTable1.setModel(tableModel);
         loggedIn.setText("Currently Logged In As: " + User.getCurrentUser());
         setTitle("Generate Purchase Requisition");
         setLocationRelativeTo(null);
@@ -197,7 +198,9 @@ public class GenerateRequisition extends javax.swing.JFrame {
     }//GEN-LAST:event_deleteActionPerformed
 
     private void saveExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveExitActionPerformed
-        saveTableData();
+        PurchaseRequisition.saveTableData(jTable1, prList);
+        JOptionPane.showMessageDialog(this, "Changes saved successfully.");
+        dispose();
     }//GEN-LAST:event_saveExitActionPerformed
 
     private void dateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dateActionPerformed
@@ -212,40 +215,7 @@ public class GenerateRequisition extends javax.swing.JFrame {
         }
         itemBox.setModel(comboBoxModel);
     }
-    
-    private void saveTableData() {
-        int numRows = jTable1.getRowCount();
 
-        for (int row = 0; row < numRows; row++) {
-            String prCode = (String) jTable1.getValueAt(row, 0);
-            String itemCode = (String) jTable1.getValueAt(row, 1);
-            int quantity;
-            try {
-                quantity = Integer.parseInt(jTable1.getValueAt(row, 2).toString());
-            } catch (NumberFormatException e) {
-                // Handle invalid price format, e.g., show a warning message or set a default value
-                quantity = 0; // or any default value
-            }
-            String date = (String) jTable1.getValueAt(row, 3);
-            String smID = (String) jTable1.getValueAt(row, 4);
-
-            // Find the corresponding Item object in the itemList based on itemCode
-            for (PurchaseRequisition pr : prList) {
-                if (pr.getPrCode().equals(prCode)) {
-                    // Update the Item object with the edited values
-                    pr.setPrCode(prCode);
-                    pr.setItemCode(itemCode);
-                    pr.setQuantity(quantity);
-                    pr.setDateRequired(date);
-                    pr.setSmID(smID);
-                    break;
-                }
-            }
-        }
-        PurchaseRequisition.saveToFile(prList);
-        JOptionPane.showMessageDialog(this, "Changes saved successfully.");
-        dispose();
-    }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton add;

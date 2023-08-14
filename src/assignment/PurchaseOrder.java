@@ -10,6 +10,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -123,4 +124,29 @@ public class PurchaseOrder {
         }
         return tableModel;
     }
+    
+    public static void saveTableData(JTable jTable1, ArrayList<PurchaseOrder> poList) {
+        int numRows = jTable1.getRowCount();
+
+        for (int row = 0; row < numRows; row++) {
+            String poCode = (String) jTable1.getValueAt(row, 0);
+            String prCode = (String) jTable1.getValueAt(row, 1);
+            String status = (String) jTable1.getValueAt(row, 2);
+            String pmID = (String) jTable1.getValueAt(row, 3);
+
+            // Find the corresponding Item object in the itemList based on itemCode
+            for (PurchaseOrder po : poList) {
+                if (po.getPoCode().equals(poCode)) {
+                    // Update the Item object with the edited values
+                    po.setPrCode(poCode);
+                    po.setPrCode(prCode);
+                    po.setStatus(status);
+                    po.setPmCode(pmID);
+                    break;
+                }
+            }
+        }
+        PurchaseOrder.saveToFile(poList);
+    }
+    
 }

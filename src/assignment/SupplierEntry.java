@@ -21,7 +21,8 @@ public class SupplierEntry extends javax.swing.JFrame {
     
     public SupplierEntry() {
         initComponents();
-        jTable1.setModel(Supplier.initializeTable(supplierList));
+        tableModel = Supplier.initializeTable(supplierList);
+        jTable1.setModel(tableModel);
         setTitle("Add Supplier");
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -168,7 +169,9 @@ public class SupplierEntry extends javax.swing.JFrame {
     }//GEN-LAST:event_DeleteActionPerformed
 
     private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
-        saveTableData();
+        Supplier.saveTableData(jTable1, supplierList);
+        JOptionPane.showMessageDialog(this, "Changes saved successfully.");
+        dispose();
     }//GEN-LAST:event_saveActionPerformed
 
     private void supplierNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supplierNameActionPerformed
@@ -179,29 +182,7 @@ public class SupplierEntry extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_contactInfoActionPerformed
     
-    private void saveTableData() {
-    int numRows = jTable1.getRowCount();
 
-    for (int row = 0; row < numRows; row++) {
-        String supplierCode = (String) jTable1.getValueAt(row, 0);
-        String supplierName = (String) jTable1.getValueAt(row, 1);
-        String supplierContact = (String) jTable1.getValueAt(row, 2);
-
-        // Find the corresponding Item object in the itemList based on itemCode
-        for (Supplier supplier : supplierList) {
-            if (supplier.getSupplierCode().equals(supplierCode)) {
-                // Update the Item object with the edited values
-                supplier.setSupplierCode(supplierCode);
-                supplier.setSupplierName(supplierName);
-                supplier.setContactInformation(supplierContact);
-                break;
-            }
-        }
-    }
-    Supplier.saveToFile(supplierList);
-    JOptionPane.showMessageDialog(this, "Changes saved successfully.");
-    dispose();
-}
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Delete;

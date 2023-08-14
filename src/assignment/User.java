@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 public class User {
@@ -162,6 +163,29 @@ public class User {
         return tableModel;
 
     }
+    
+    public static void saveTableData(JTable jTable1, ArrayList<User> userList) {
+    int numRows = jTable1.getRowCount();
+    for (int row = 0; row < numRows; row++) {
+        String userCode = (String) jTable1.getValueAt(row, 0);
+        String userPass = (String) jTable1.getValueAt(row, 1);
+        String userRole = (String) jTable1.getValueAt(row, 2);
+        String userName = (String) jTable1.getValueAt(row, 3);
+
+        // Find the corresponding Item object in the itemList based on itemCode
+        for (User user : userList) {
+            if (user.getUserCode().equals(userCode)) {
+                // Update the Item object with the edited values
+                user.setUserCode(userCode);
+                user.setPassword(userPass);
+                user.setRole(userRole);
+                user.setUsername(userName);
+                break;
+            }
+        }
+    }
+    User.saveToFile(userList);
+}
     
     @Override
     public String toString() {

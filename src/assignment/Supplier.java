@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 public class Supplier {
@@ -112,6 +113,27 @@ public class Supplier {
         return tableModel;
 
     }
+    
+    public static void saveTableData(JTable jTable1, ArrayList<Supplier> supplierList) {
+    int numRows = jTable1.getRowCount();
+    for (int row = 0; row < numRows; row++) {
+        String supplierCode = (String) jTable1.getValueAt(row, 0);
+        String supplierName = (String) jTable1.getValueAt(row, 1);
+        String supplierContact = (String) jTable1.getValueAt(row, 2);
+
+        // Find the corresponding Item object in the itemList based on itemCode
+        for (Supplier supplier : supplierList) {
+            if (supplier.getSupplierCode().equals(supplierCode)) {
+                // Update the Item object with the edited values
+                supplier.setSupplierCode(supplierCode);
+                supplier.setSupplierName(supplierName);
+                supplier.setContactInformation(supplierContact);
+                break;
+            }
+        }
+    }
+    Supplier.saveToFile(supplierList);
+}
     
     @Override
     public String toString() {

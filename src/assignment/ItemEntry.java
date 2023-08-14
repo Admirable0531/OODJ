@@ -11,7 +11,8 @@ public class ItemEntry extends javax.swing.JFrame {
     public ItemEntry() {
         initComponents();
         initCombo();
-        jTable1.setModel(Item.initializeTable(itemList));
+        tableModel = Item.initializeTable(itemList);
+        jTable1.setModel(tableModel);
         setTitle("Available Items");
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -178,7 +179,9 @@ public class ItemEntry extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void saveExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveExitActionPerformed
-        saveTableData();
+        Item.saveTableData(jTable1, itemList);
+        JOptionPane.showMessageDialog(this, "Changes saved successfully.");
+        dispose();
     }//GEN-LAST:event_saveExitActionPerformed
 
     private void itemSupplierBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemSupplierBoxActionPerformed
@@ -200,46 +203,6 @@ public class ItemEntry extends javax.swing.JFrame {
         tableModel.removeRow(selectedRow);
         itemList.remove(selectedRow);
     }//GEN-LAST:event_deleteActionPerformed
-
-    
-    private void saveTableData() {
-        int numRows = jTable1.getRowCount();
-
-        for (int row = 0; row < numRows; row++) {
-            String itemCode = (String) jTable1.getValueAt(row, 0);
-            String itemName = (String) jTable1.getValueAt(row, 1);
-            double price;
-            try {
-                price = Double.parseDouble(jTable1.getValueAt(row, 2).toString());
-            } catch (NumberFormatException e) {
-                // Handle invalid price format, e.g., show a warning message or set a default value
-                price = 0.0; // or any default value
-            }
-            String supplier = (String) jTable1.getValueAt(row, 3);
-            int stock;
-            try {
-                stock = Integer.parseInt(jTable1.getValueAt(row, 4).toString());
-            } catch (NumberFormatException e) {
-                // Handle invalid price format, e.g., show a warning message or set a default value
-                stock = 0; // or any default value
-            }
-
-            // Find the corresponding Item object in the itemList based on itemCode
-            for (Item item : itemList) {
-                if (item.getItemCode().equals(itemCode)) {
-                    // Update the Item object with the edited values
-                    item.setItemName(itemName);
-                    item.setPrice(price);
-                    item.setSupplier(supplier);
-                    item.setStock(stock);
-                    break;
-                }
-            }
-        }
-        Item.saveToFile(itemList);
-        JOptionPane.showMessageDialog(this, "Changes saved successfully.");
-        dispose();
-    }
 
     private void initCombo(){
         ArrayList<Supplier> supplierList = Supplier.loadSuppliers();

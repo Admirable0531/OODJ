@@ -26,7 +26,8 @@ public class GeneratePurchaseOrder extends javax.swing.JFrame {
     public GeneratePurchaseOrder() {
         initComponents();
         initCombo();
-        jTable1.setModel(PurchaseOrder.initializeTable(poList));
+        tableModel = PurchaseOrder.initializeTable(poList);
+        jTable1.setModel(tableModel);
         loggedIn.setText("Currently Logged In As: " + User.getCurrentUser());
         setTitle("Generate Purchase Order");
         setLocationRelativeTo(null);
@@ -159,7 +160,9 @@ public class GeneratePurchaseOrder extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
-        saveTableData();
+        PurchaseOrder.saveTableData(jTable1, poList);
+        JOptionPane.showMessageDialog(this, "Changes saved successfully.");
+        dispose();
     }//GEN-LAST:event_saveActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -192,32 +195,7 @@ public class GeneratePurchaseOrder extends javax.swing.JFrame {
         statusBoxModel.addElement("Done");
         statusBox.setModel(statusBoxModel);
     }
-    
-    private void saveTableData() {
-        int numRows = jTable1.getRowCount();
 
-        for (int row = 0; row < numRows; row++) {
-            String poCode = (String) jTable1.getValueAt(row, 0);
-            String prCode = (String) jTable1.getValueAt(row, 1);
-            String status = (String) jTable1.getValueAt(row, 2);
-            String pmID = (String) jTable1.getValueAt(row, 3);
-
-            // Find the corresponding Item object in the itemList based on itemCode
-            for (PurchaseOrder po : poList) {
-                if (po.getPoCode().equals(poCode)) {
-                    // Update the Item object with the edited values
-                    po.setPrCode(poCode);
-                    po.setPrCode(prCode);
-                    po.setStatus(status);
-                    po.setPmCode(pmID);
-                    break;
-                }
-            }
-        }
-        PurchaseOrder.saveToFile(poList);
-        JOptionPane.showMessageDialog(this, "Changes saved successfully.");
-        dispose();
-    }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton delete;

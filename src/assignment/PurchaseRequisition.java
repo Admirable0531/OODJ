@@ -10,6 +10,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -22,6 +23,7 @@ public class PurchaseRequisition {
     private String dateRequired;
     private String smID;
     private static ArrayList<PurchaseRequisition> prList;
+    private static DefaultTableModel tableModel;
     
     public PurchaseRequisition(String prCode, String itemCode, int quantity, String dateRequired, String smID) {
         this.prCode = prCode;
@@ -121,5 +123,17 @@ public class PurchaseRequisition {
         return "PR" + formattedIncrementedValue;
     }
     
+    public static DefaultTableModel initializeTable(ArrayList<PurchaseRequisition> prList) {
+        // Create the table model with column headers
+        String[] columnHeaders = {"PR Code", "Item Code", "Quantity", "Date", "SM ID"};
+        tableModel = new DefaultTableModel(columnHeaders, 0);
+
+        // Populate the table model with item data
+        for (PurchaseRequisition pr : prList) {
+            Object[] rowData = {pr.getPrCode(), pr.getItemCode(), pr.getQuantity(), pr.getDateRequired(), pr.getSmID()};
+            tableModel.addRow(rowData);
+        }
+        return tableModel;
+    }
     
 }

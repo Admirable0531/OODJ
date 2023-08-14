@@ -6,7 +6,6 @@ package assignment;
 
 import java.util.ArrayList;
 import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -14,7 +13,6 @@ import javax.swing.table.DefaultTableModel;
  */
 public class ListPurchaseOrders extends javax.swing.JFrame {
     private JTable itemTable;
-    private DefaultTableModel tableModel;
     private ArrayList<PurchaseOrder> poList = PurchaseOrder.loadPO();
 
     /**
@@ -22,7 +20,9 @@ public class ListPurchaseOrders extends javax.swing.JFrame {
      */
     public ListPurchaseOrders() {
         initComponents();
-        initializeTable(poList);
+        
+        jTable1.setModel(PurchaseOrder.initializeTable(poList));
+        jTable1.setDefaultEditor(Object.class, null);
         setTitle("List Purchase Order");
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -93,24 +93,7 @@ public class ListPurchaseOrders extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void initializeTable(ArrayList<PurchaseOrder> poList) {
-        // Create the table model with column headers
-        String[] columnHeaders = {"PO Code", "PR Code", "Stats", "PM ID"};
-        tableModel = new DefaultTableModel(columnHeaders, 0);
-
-        // Populate the table model with item data
-        for (PurchaseOrder po : poList) {
-            Object[] rowData = {po.getPoCode(), po.getPrCode(), po.getStatus(), po.getPmCode()};
-            tableModel.addRow(rowData);
-        }
-
-
-        jTable1.setDefaultEditor(Object.class, null);
-        jTable1.setModel(tableModel);
-    }
-    
-    
+        
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;

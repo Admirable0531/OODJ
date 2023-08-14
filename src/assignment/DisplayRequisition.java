@@ -14,12 +14,12 @@ import javax.swing.table.DefaultTableModel;
  */
 public class DisplayRequisition extends javax.swing.JFrame {
     private JTable itemTable;
-    private DefaultTableModel tableModel;
     private ArrayList<PurchaseRequisition> prList = PurchaseRequisition.loadPR();
     
     public DisplayRequisition() {
         initComponents();
-        initializeTable(prList);
+        jTable1.setModel(PurchaseRequisition.initializeTable(prList));
+        jTable1.setDefaultEditor(Object.class, null);
         setTitle("Display Purchase Requisition");
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -102,25 +102,6 @@ public class DisplayRequisition extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    private void initializeTable(ArrayList<PurchaseRequisition> prList) {
-        // Create the table model with column headers
-        String[] columnHeaders = {"PR Code", "Item Code", "Quantity", "Date", "SM ID"};
-        tableModel = new DefaultTableModel(columnHeaders, 0);
-
-        // Populate the table model with item data
-        for (PurchaseRequisition pr : prList) {
-            Object[] rowData = {pr.getPrCode(), pr.getItemCode(), pr.getQuantity(), pr.getDateRequired(), pr.getSmID()};
-            tableModel.addRow(rowData);
-        }
-
-        // Set the table model for the JTable
-        
-        jTable1.setDefaultEditor(Object.class, null);
-
-        jTable1.setModel(tableModel);
-    }
-
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;

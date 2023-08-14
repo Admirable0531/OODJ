@@ -26,7 +26,7 @@ public class GeneratePurchaseOrder extends javax.swing.JFrame {
     public GeneratePurchaseOrder() {
         initComponents();
         initCombo();
-        initializeTable(poList);
+        jTable1.setModel(PurchaseOrder.initializeTable(poList));
         loggedIn.setText("Currently Logged In As: " + User.getCurrentUser());
         setTitle("Generate Purchase Order");
         setLocationRelativeTo(null);
@@ -177,21 +177,6 @@ public class GeneratePurchaseOrder extends javax.swing.JFrame {
         tableModel.removeRow(selectedRow);
         poList.remove(selectedRow);
     }//GEN-LAST:event_deleteActionPerformed
-
-    private void initializeTable(ArrayList<PurchaseOrder> poList) {
-        // Create the table model with column headers
-        String[] columnHeaders = {"PO Code", "PR Code", "Stats", "PM ID"};
-        tableModel = new DefaultTableModel(columnHeaders, 0);
-
-        // Populate the table model with item data
-        for (PurchaseOrder po : poList) {
-            Object[] rowData = {po.getPoCode(), po.getPrCode(), po.getStatus(), po.getPmCode()};
-            tableModel.addRow(rowData);
-        }
-
-
-        jTable1.setModel(tableModel);
-    }
         
     private void initCombo(){
         ArrayList<PurchaseRequisition> prList = PurchaseRequisition.loadPR();

@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
 
 public class Item {
     private String itemCode;
@@ -14,6 +15,7 @@ public class Item {
     private String supplier;
     private int stock;
     private static ArrayList<Item> itemList;
+    private static DefaultTableModel tableModel;
 
     public Item(String itemCode, String itemName, double price, String supplier, int stock) {
         this.itemCode = itemCode;
@@ -111,6 +113,21 @@ public class Item {
         String formattedIncrementedValue = String.format("%04d", incrementedValue);
         return "I" + formattedIncrementedValue;
     }
+    
+    public static DefaultTableModel initializeTable(ArrayList<Item> itemList) {
+        // Create the table model with column headers
+        String[] columnHeaders = {"Item Code", "Item Name", "Price", "Supplier", "Stock"};
+        tableModel = new DefaultTableModel(columnHeaders, 0);
+
+        // Populate the table model with item data
+        for (Item item : itemList) {
+            Object[] rowData = {item.getItemCode(), item.getItemName(), item.getPrice(), item.getSupplier(), item.getStock()};
+            tableModel.addRow(rowData);
+        }
+        return tableModel;
+
+    }
+        
     
     @Override
     public String toString() {

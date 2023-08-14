@@ -22,7 +22,7 @@ public class UserRegistrationGUI extends javax.swing.JFrame {
      */
     public UserRegistrationGUI() {
         initComponents();
-        initializeTable(userList);
+        jTable1.setModel(User.initializeTable(userList));
         setTitle("User Registration");
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -210,23 +210,6 @@ public class UserRegistrationGUI extends javax.swing.JFrame {
     private void passActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_passActionPerformed
-
-
-    private void initializeTable(ArrayList<User> userList) {
-        // Create the table model with column headers
-        String[] columnHeaders = {"Code", "Password", "Role", "Name"};
-        tableModel = new DefaultTableModel(columnHeaders, 0);
-
-        // Populate the table model with item data
-        for (User user : userList) {
-            Object[] rowData = {user.getUserCode(), user.getPassword(), user.getRole(), user.getUsername()};
-            tableModel.addRow(rowData);
-        }
-
-        // Set the table model for the JTable
-        jTable1.setModel(tableModel);
-
-    }
     
     private void saveTableData() {
         int numRows = jTable1.getRowCount();

@@ -10,6 +10,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -21,6 +22,7 @@ public class PurchaseOrder {
     private String status;
     private String pmCode;
     private static ArrayList<PurchaseOrder> poList;
+    private static DefaultTableModel tableModel;
     
     public PurchaseOrder(String poCode, String prCode, String status, String pmCode){
         this.poCode = poCode;
@@ -109,4 +111,16 @@ public class PurchaseOrder {
         return "PO" + formattedIncrementedValue;
     }
     
+    public static DefaultTableModel initializeTable(ArrayList<PurchaseOrder> poList) {
+        // Create the table model with column headers
+        String[] columnHeaders = {"PO Code", "PR Code", "Stats", "PM ID"};
+        tableModel = new DefaultTableModel(columnHeaders, 0);
+
+        // Populate the table model with item data
+        for (PurchaseOrder po : poList) {
+            Object[] rowData = {po.getPoCode(), po.getPrCode(), po.getStatus(), po.getPmCode()};
+            tableModel.addRow(rowData);
+        }
+        return tableModel;
+    }
 }

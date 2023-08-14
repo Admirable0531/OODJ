@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
 
 public class User {
     private String userCode;
@@ -14,6 +15,7 @@ public class User {
     private String role;
     private static String currentUser;
     private static ArrayList<User> userList;
+    private static DefaultTableModel tableModel;
     
     public User(String userCode, String password, String role, String username) {
         this.userCode = userCode;
@@ -144,6 +146,21 @@ public class User {
     // Get the current user
     public static String getCurrentUser() {
         return currentUser;
+    }
+    
+    public static DefaultTableModel initializeTable(ArrayList<User> userList) {
+        // Create the table model with column headers
+        String[] columnHeaders = {"Code", "Password", "Role", "Name"};
+        tableModel = new DefaultTableModel(columnHeaders, 0);
+
+        // Populate the table model with item data
+        for (User user : userList) {
+            Object[] rowData = {user.getUserCode(), user.getPassword(), user.getRole(), user.getUsername()};
+            tableModel.addRow(rowData);
+        }
+
+        return tableModel;
+
     }
     
     @Override

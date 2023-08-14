@@ -6,12 +6,14 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
 
 public class Supplier {
     private String supplierCode;
     private String supplierName;
     private String contactInformation;
     private static ArrayList<Supplier> supplierList;
+    private static DefaultTableModel tableModel;
     
     public Supplier(String supplierCode, String supplierName, String contactInformation){
         this.supplierCode = supplierCode;
@@ -95,6 +97,20 @@ public class Supplier {
         
         // Combine the first character 'I' with the formatted incremented value
         return "S" + formattedIncrementedValue;
+    }
+    
+    public static DefaultTableModel initializeTable(ArrayList<Supplier> supplierList) {
+        // Create the table model with column headers
+        String[] columnHeaders = {"Code", "Name", "Contact Information"};
+        tableModel = new DefaultTableModel(columnHeaders, 0);
+
+        // Populate the table model with item data
+        for (Supplier supplier : supplierList) {
+            Object[] rowData = {supplier.getSupplierCode(), supplier.getSupplierName(), supplier.getContactInformation()};
+            tableModel.addRow(rowData);
+        }
+        return tableModel;
+
     }
     
     @Override

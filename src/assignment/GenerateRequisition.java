@@ -21,7 +21,7 @@ public class GenerateRequisition extends javax.swing.JFrame {
     public GenerateRequisition() {
         initComponents();
         initCombo();
-        initializeTable(prList);
+        jTable1.setModel(PurchaseRequisition.initializeTable(prList));
         loggedIn.setText("Currently Logged In As: " + User.getCurrentUser());
         setTitle("Generate Purchase Requisition");
         setLocationRelativeTo(null);
@@ -203,23 +203,6 @@ public class GenerateRequisition extends javax.swing.JFrame {
     private void dateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dateActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_dateActionPerformed
-
-
-    private void initializeTable(ArrayList<PurchaseRequisition> prList) {
-        // Create the table model with column headers
-        String[] columnHeaders = {"PR Code", "Item Code", "Quantity", "Date", "SM ID"};
-        tableModel = new DefaultTableModel(columnHeaders, 0);
-
-        // Populate the table model with item data
-        for (PurchaseRequisition pr : prList) {
-            Object[] rowData = {pr.getPrCode(), pr.getItemCode(), pr.getQuantity(), pr.getDateRequired(), pr.getSmID()};
-            tableModel.addRow(rowData);
-        }
-
-        // Set the table model for the JTable
-        jTable1.setModel(tableModel);
-
-    }
 
     private void initCombo(){
         ArrayList<Item> itemList = Item.loadItems();

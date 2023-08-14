@@ -23,8 +23,10 @@ public class ViewItemAndSupplier extends javax.swing.JFrame {
      */
     public ViewItemAndSupplier() {
         initComponents();
-        initializeTableItem(itemList);
-        initializeTableSupply(supplierList);
+        jTable1.setModel(Item.initializeTable(itemList));
+        jTable1.setDefaultEditor(Object.class, null);
+        jTable2.setModel(Supplier.initializeTable(supplierList));
+        jTable2.setDefaultEditor(Object.class, null);
         setTitle("Display Item and Suppliers");
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -127,40 +129,7 @@ public class ViewItemAndSupplier extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    private void initializeTableItem(ArrayList<Item> itemList) {
-        // Create the table model with column headers
-        String[] columnHeaders = {"Item Code", "Item Name", "Price", "Supplier", "Stock"};
-        tableModel = new DefaultTableModel(columnHeaders, 0);
 
-        // Populate the table model with item data
-        for (Item item : itemList) {
-            Object[] rowData = {item.getItemCode(), item.getItemName(), item.getPrice(), item.getSupplier(), item.getStock()};
-            tableModel.addRow(rowData);
-        }
-
-        // Set the table model for the JTable
-        
-        jTable1.setDefaultEditor(Object.class, null);
-        jTable1.setModel(tableModel);
-
-    }
-    
-    private void initializeTableSupply(ArrayList<Supplier> supplierList) {
-        // Create the table model with column headers
-        String[] columnHeaders = {"Code", "Name", "Contact Information"};
-        tableModel = new DefaultTableModel(columnHeaders, 0);
-
-        // Populate the table model with item data
-        for (Supplier supplier : supplierList) {
-            Object[] rowData = {supplier.getSupplierCode(), supplier.getSupplierName(), supplier.getContactInformation()};
-            tableModel.addRow(rowData);
-        }
-
-        // Set the table model for the JTable
-        jTable2.setDefaultEditor(Object.class, null);
-        jTable2.setModel(tableModel);
-
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

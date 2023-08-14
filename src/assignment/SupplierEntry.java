@@ -21,7 +21,7 @@ public class SupplierEntry extends javax.swing.JFrame {
     
     public SupplierEntry() {
         initComponents();
-        initializeTable(supplierList);
+        jTable1.setModel(Supplier.initializeTable(supplierList));
         setTitle("Add Supplier");
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -162,7 +162,9 @@ public class SupplierEntry extends javax.swing.JFrame {
     }//GEN-LAST:event_addActionPerformed
 
     private void DeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteActionPerformed
-        deleteSupplier();
+        int selectedRow = jTable1.getSelectedRow();
+        tableModel.removeRow(selectedRow);
+        supplierList.remove(selectedRow);
     }//GEN-LAST:event_DeleteActionPerformed
 
     private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
@@ -176,30 +178,6 @@ public class SupplierEntry extends javax.swing.JFrame {
     private void contactInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contactInfoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_contactInfoActionPerformed
-
-    private void initializeTable(ArrayList<Supplier> supplierList) {
-        // Create the table model with column headers
-        String[] columnHeaders = {"Code", "Name", "Contact Information"};
-        tableModel = new DefaultTableModel(columnHeaders, 0);
-
-        // Populate the table model with item data
-        for (Supplier supplier : supplierList) {
-            Object[] rowData = {supplier.getSupplierCode(), supplier.getSupplierName(), supplier.getContactInformation()};
-            tableModel.addRow(rowData);
-        }
-
-        // Set the table model for the JTable
-        jTable1.setModel(tableModel);
-
-    }
-    
-    private void deleteSupplier() {
-        int selectedRow = jTable1.getSelectedRow();
-        tableModel.removeRow(selectedRow);
-        supplierList.remove(selectedRow);
-        System.out.println(supplierList);
-        
-    }
     
     private void saveTableData() {
     int numRows = jTable1.getRowCount();

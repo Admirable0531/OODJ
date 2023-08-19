@@ -5,8 +5,13 @@
 package assignment;
 
 import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import javax.swing.JOptionPane;
+
 
 /**
  *
@@ -15,32 +20,21 @@ import javax.swing.table.DefaultTableModel;
 public class DailySalesEntry extends javax.swing.JFrame {
     private JTable itemTable;
     private DefaultTableModel tableModel;
-    private ArrayList<Item> dailyList = Item.loadItems();
+    private ArrayList<Daily> dailyList = Daily.loadDaily();
     
     public DailySalesEntry() {
         initComponents();
-        //initializeTable(dailyList);
+        initCombo();
+        tableModel = Daily.initializeTable(dailyList);
+        jTable1.setModel(tableModel);
         setTitle("Daily Sales Entry");
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setVisible(true);
     }
 
     
-//    private void initializeTable(ArrayList<Item> dailyList) {
-//        // Create the table model with column headers
-//        String[] columnHeaders = {"Item Code", "Item Name", "Date", "Quantity", "Stock"};
-//        tableModel = new DefaultTableModel(columnHeaders, 0);
-//
-//        // Populate the table model with item data
-//        for (Item item : itemList) {
-//            Object[] rowData = {item.getItemCode(), item.getItemName(), item.getPrice(), item.getSupplier(), item.getStock()};
-//            tableModel.addRow(rowData);
-//        }
-//
-//        // Set the table model for the JTable
-//        jTable1.setModel(tableModel);
-//
-//    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -51,10 +45,10 @@ public class DailySalesEntry extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         add = new javax.swing.JButton();
         delete = new javax.swing.JButton();
-        itemPrice = new javax.swing.JTextField();
+        quantityBox = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        itemBox = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -69,17 +63,17 @@ public class DailySalesEntry extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Code", "Name", "Date", "Quantity", "Stock"
+                "Code", "Name", "Quantity", "Date"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -102,11 +96,11 @@ public class DailySalesEntry extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setText("Item code will be assigned automatically");
+        jLabel2.setText("Sales code will be assigned automatically");
 
         jLabel3.setText("Item Name");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        itemBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -126,9 +120,9 @@ public class DailySalesEntry extends javax.swing.JFrame {
                             .addComponent(jLabel2)
                             .addComponent(jLabel3)
                             .addComponent(jLabel4)
-                            .addComponent(itemPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 82, Short.MAX_VALUE)
+                            .addComponent(quantityBox, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(itemBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 476, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(17, 17, 17))
         );
@@ -149,11 +143,11 @@ public class DailySalesEntry extends javax.swing.JFrame {
                         .addGap(30, 30, 30)
                         .addComponent(jLabel3)
                         .addGap(18, 18, 18)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(itemBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel4)
                         .addGap(18, 18, 18)
-                        .addComponent(itemPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(quantityBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -161,30 +155,48 @@ public class DailySalesEntry extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void saveExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveExitActionPerformed
-    //    saveTableData();
+        Daily.saveTableData(jTable1, dailyList);
+        JOptionPane.showMessageDialog(this, "Changes saved successfully.");
+        dispose();
     }//GEN-LAST:event_saveExitActionPerformed
 
     private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
-    //    String newItemCode = Item.getNewCode(itemList);
-    //    tableModel.addRow(new Object[]{newItemCode, itemName.getText(), itemPrice.getText(), itemSupplier.getSelectedItem()});
-    //    itemList.add(new Item(newItemCode, itemName.getText(), Double.parseDouble(itemPrice.getText()), itemSupplier.getSelectedItem().toString()));
+        String newDailyCode = Daily.getNewCode(dailyList);
+        LocalDate currentDate = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        
+        String formattedDate = currentDate.format(formatter);
+        tableModel.addRow(new Object[]{newDailyCode, itemBox.getSelectedItem(), Integer.parseInt(quantityBox.getText()), formattedDate});
+        dailyList.add(new Daily(newDailyCode, itemBox.getSelectedItem().toString(), Integer.parseInt(quantityBox.getText()), formattedDate));
     }//GEN-LAST:event_addActionPerformed
 
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
-    //    deleteItem();
+        int selectedRow = jTable1.getSelectedRow();
+        tableModel.removeRow(selectedRow);
+        dailyList.remove(selectedRow);
     }//GEN-LAST:event_deleteActionPerformed
 
 
+    private void initCombo(){
+        ArrayList<Item> itemList = Item.loadItems();
+        DefaultComboBoxModel<String> comboBoxModel = new DefaultComboBoxModel<>();
+        for (Item item : itemList) {
+            comboBoxModel.addElement(item.getItemCode());
+        }
+        itemBox.setModel(comboBoxModel);
+    }
+
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton add;
     private javax.swing.JButton delete;
-    private javax.swing.JTextField itemPrice;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> itemBox;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTextField quantityBox;
     private javax.swing.JButton saveExit;
     // End of variables declaration//GEN-END:variables
 }

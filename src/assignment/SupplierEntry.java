@@ -158,14 +158,22 @@ public class SupplierEntry extends javax.swing.JFrame {
 
     private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
         String newSupplierCode = Supplier.getNewCode(supplierList);
-        tableModel.addRow(new Object[]{newSupplierCode, supplierName.getText(), contactInfo.getText()});
-        supplierList.add(new Supplier(newSupplierCode, supplierName.getText(), contactInfo.getText()));
+        try {
+            tableModel.addRow(new Object[]{newSupplierCode, supplierName.getText(), contactInfo.getText()});
+            supplierList.add(new Supplier(newSupplierCode, supplierName.getText(), contactInfo.getText()));
+        } catch(Exception e) {
+            JOptionPane.showMessageDialog(this, "Please make sure there are no blanks");
+        }
     }//GEN-LAST:event_addActionPerformed
 
     private void DeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteActionPerformed
         int selectedRow = jTable1.getSelectedRow();
-        tableModel.removeRow(selectedRow);
-        supplierList.remove(selectedRow);
+        if(selectedRow != -1){
+            tableModel.removeRow(selectedRow);
+            supplierList.remove(selectedRow);
+        } else {
+            JOptionPane.showMessageDialog(this, "Please selected a row to delete");
+        }
     }//GEN-LAST:event_DeleteActionPerformed
 
     private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed

@@ -187,14 +187,22 @@ public class GenerateRequisition extends javax.swing.JFrame {
 
     private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
         String newPrCode = PurchaseRequisition.getNewCode(prList);
+        try {
         tableModel.addRow(new Object[]{newPrCode, itemBox.getSelectedItem().toString(), itemQuantity.getText(), date.getText(), User.getCurrentUser()});
         prList.add(new PurchaseRequisition(newPrCode, itemBox.getSelectedItem().toString(), Integer.parseInt(itemQuantity.getText()), date.getText(), User.getCurrentUser()));
+        } catch(Exception e) {
+            JOptionPane.showMessageDialog(this, "Please make sure there are no blanks");
+        }
     }//GEN-LAST:event_addActionPerformed
 
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
         int selectedRow = jTable1.getSelectedRow();
-        tableModel.removeRow(selectedRow);
-        prList.remove(selectedRow);
+        if(selectedRow != -1){
+            tableModel.removeRow(selectedRow);
+            prList.remove(selectedRow);
+        } else {
+            JOptionPane.showMessageDialog(this, "Please selected a row to delete");
+        }
     }//GEN-LAST:event_deleteActionPerformed
 
     private void saveExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveExitActionPerformed

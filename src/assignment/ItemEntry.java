@@ -194,14 +194,22 @@ public class ItemEntry extends javax.swing.JFrame {
 
     private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
         String newItemCode = Item.getNewCode(itemList);
-        tableModel.addRow(new Object[]{newItemCode, itemName.getText(), itemPrice.getText(), itemSupplierBox.getSelectedItem(), stock.getText()});
-        itemList.add(new Item(newItemCode, itemName.getText(), Double.parseDouble(itemPrice.getText()), itemSupplierBox.getSelectedItem().toString(),Integer.parseInt(stock.getText())));
+        try {
+            tableModel.addRow(new Object[]{newItemCode, itemName.getText(), itemPrice.getText(), itemSupplierBox.getSelectedItem(), stock.getText()});
+            itemList.add(new Item(newItemCode, itemName.getText(), Double.parseDouble(itemPrice.getText()), itemSupplierBox.getSelectedItem().toString(),Integer.parseInt(stock.getText())));
+        } catch(Exception e) {
+            JOptionPane.showMessageDialog(this, "Please make sure there are no blanks");
+        }
     }//GEN-LAST:event_addActionPerformed
 
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
         int selectedRow = jTable1.getSelectedRow();
-        tableModel.removeRow(selectedRow);
-        itemList.remove(selectedRow);
+        if(selectedRow != -1){
+            tableModel.removeRow(selectedRow);
+            itemList.remove(selectedRow);
+        } else {
+            JOptionPane.showMessageDialog(this, "Please selected a row to delete");
+        }
     }//GEN-LAST:event_deleteActionPerformed
 
     private void initCombo(){

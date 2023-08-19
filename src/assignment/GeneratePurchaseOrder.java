@@ -167,8 +167,12 @@ public class GeneratePurchaseOrder extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         String newPoCode = PurchaseOrder.getNewCode(poList);
-        tableModel.addRow(new Object[]{newPoCode, prCombo.getSelectedItem().toString(), statusBox.getSelectedItem().toString(), User.getCurrentUser()});
-        poList.add(new PurchaseOrder(newPoCode, prCombo.getSelectedItem().toString(), statusBox.getSelectedItem().toString(), User.getCurrentUser()));
+        try {
+            tableModel.addRow(new Object[]{newPoCode, prCombo.getSelectedItem().toString(), statusBox.getSelectedItem().toString(), User.getCurrentUser()});
+            poList.add(new PurchaseOrder(newPoCode, prCombo.getSelectedItem().toString(), statusBox.getSelectedItem().toString(), User.getCurrentUser()));
+        } catch(Exception e) {
+            JOptionPane.showMessageDialog(this, "Please make sure there are no blanks");
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void statusBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statusBoxActionPerformed
@@ -177,8 +181,12 @@ public class GeneratePurchaseOrder extends javax.swing.JFrame {
 
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
         int selectedRow = jTable1.getSelectedRow();
-        tableModel.removeRow(selectedRow);
-        poList.remove(selectedRow);
+        if(selectedRow != -1){
+            tableModel.removeRow(selectedRow);
+            poList.remove(selectedRow);
+        } else {
+            JOptionPane.showMessageDialog(this, "Please selected a row to delete");
+        }
     }//GEN-LAST:event_deleteActionPerformed
         
     private void initCombo(){

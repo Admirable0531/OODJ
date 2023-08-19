@@ -166,14 +166,23 @@ public class DailySalesEntry extends javax.swing.JFrame {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         
         String formattedDate = currentDate.format(formatter);
-        tableModel.addRow(new Object[]{newDailyCode, itemBox.getSelectedItem(), Integer.parseInt(quantityBox.getText()), formattedDate});
-        dailyList.add(new Daily(newDailyCode, itemBox.getSelectedItem().toString(), Integer.parseInt(quantityBox.getText()), formattedDate));
+        try{
+            tableModel.addRow(new Object[]{newDailyCode, itemBox.getSelectedItem(), Integer.parseInt(quantityBox.getText()), formattedDate});
+            dailyList.add(new Daily(newDailyCode, itemBox.getSelectedItem().toString(), Integer.parseInt(quantityBox.getText()), formattedDate));
+        } catch(Exception e) {
+            JOptionPane.showMessageDialog(this, "Please make sure there are no blanks");
+        }
+        
     }//GEN-LAST:event_addActionPerformed
 
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
         int selectedRow = jTable1.getSelectedRow();
-        tableModel.removeRow(selectedRow);
-        dailyList.remove(selectedRow);
+        if(selectedRow != -1){
+            tableModel.removeRow(selectedRow);
+            dailyList.remove(selectedRow);
+        } else {
+            JOptionPane.showMessageDialog(this, "Please selected a row to delete");
+        }
     }//GEN-LAST:event_deleteActionPerformed
 
 

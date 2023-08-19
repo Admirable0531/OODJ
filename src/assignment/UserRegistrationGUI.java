@@ -5,12 +5,8 @@
 package assignment;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
-import java.util.Enumeration;
 
 public class UserRegistrationGUI extends javax.swing.JFrame {
     private JTable userTable;
@@ -196,8 +192,12 @@ public class UserRegistrationGUI extends javax.swing.JFrame {
             selectedRadioButton = pm;
         }
         String newUserCode = User.getNewCode(userList);
-        tableModel.addRow(new Object[]{newUserCode, pass.getText(), selectedRadioButton.getText(), name.getText()});
-        userList.add(new User(newUserCode, pass.getText(), selectedRadioButton.getText(), name.getText()));
+        try {
+            tableModel.addRow(new Object[]{newUserCode, pass.getText(), selectedRadioButton.getText(), name.getText()});
+            userList.add(new User(newUserCode, pass.getText(), selectedRadioButton.getText(), name.getText()));
+        } catch(Exception e) {
+            JOptionPane.showMessageDialog(this, "Please make sure there are no blanks");
+        }
     }//GEN-LAST:event_addActionPerformed
 
     private void nameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameActionPerformed
@@ -206,8 +206,12 @@ public class UserRegistrationGUI extends javax.swing.JFrame {
 
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
         int selectedRow = jTable1.getSelectedRow();
-        tableModel.removeRow(selectedRow);
-        userList.remove(selectedRow);
+        if(selectedRow != -1){
+            tableModel.removeRow(selectedRow);
+            userList.remove(selectedRow);
+        } else {
+            JOptionPane.showMessageDialog(this, "Please selected a row to delete");
+        }
     }//GEN-LAST:event_deleteActionPerformed
 
     private void passActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passActionPerformed

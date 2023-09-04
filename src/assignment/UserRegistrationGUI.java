@@ -20,6 +20,7 @@ public class UserRegistrationGUI extends javax.swing.JFrame {
         initComponents();
         tableModel = User.initializeTable(userList);
         jTable1.setModel(tableModel);
+        jTable1.setDefaultEditor(Object.class, null);
         setTitle("User Registration");
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -47,6 +48,7 @@ public class UserRegistrationGUI extends javax.swing.JFrame {
         delete = new javax.swing.JButton();
         pass = new javax.swing.JPasswordField();
         jLabel2 = new javax.swing.JLabel();
+        edit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -81,6 +83,12 @@ public class UserRegistrationGUI extends javax.swing.JFrame {
             }
         });
 
+        jScrollPane1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jScrollPane1MouseReleased(evt);
+            }
+        });
+
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -92,6 +100,11 @@ public class UserRegistrationGUI extends javax.swing.JFrame {
                 "Code", "Password", "Role", "Name"
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jTable1MouseReleased(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         delete.setText("Delete");
@@ -108,6 +121,13 @@ public class UserRegistrationGUI extends javax.swing.JFrame {
         });
 
         jLabel2.setText("Password");
+
+        edit.setText("Edit");
+        edit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -140,6 +160,8 @@ public class UserRegistrationGUI extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 476, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(edit)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(save)))
                 .addContainerGap())
@@ -169,7 +191,8 @@ public class UserRegistrationGUI extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(add)
                     .addComponent(save)
-                    .addComponent(delete))
+                    .addComponent(delete)
+                    .addComponent(edit))
                 .addContainerGap())
         );
 
@@ -217,12 +240,52 @@ public class UserRegistrationGUI extends javax.swing.JFrame {
     private void passActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_passActionPerformed
+
+    private void editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editActionPerformed
+        int selectedRow = jTable1.getSelectedRow();
+        JRadioButton selectedRadioButton = null;
+        if (admin.isSelected()) {
+            selectedRadioButton = admin;
+        } else if (sm.isSelected()) {
+            selectedRadioButton = sm;
+        } else if (pm.isSelected()) {
+            selectedRadioButton = pm;
+        }
+        if(selectedRow != -1){
+            tableModel.setValueAt(name.getText(), selectedRow, 3);
+            tableModel.setValueAt(pass.getText(), selectedRow, 1);
+            tableModel.setValueAt(selectedRadioButton, selectedRow, 2);
+        } else {
+            JOptionPane.showMessageDialog(this, "Please selected a row to edit");
+        }
+    }//GEN-LAST:event_editActionPerformed
+
+    private void jScrollPane1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jScrollPane1MouseReleased
+
+    }//GEN-LAST:event_jScrollPane1MouseReleased
+
+    private void jTable1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseReleased
+        int row = jTable1.getSelectedRow();
+        String ename = String.valueOf(tableModel.getValueAt(row, 3));
+        String epass = String.valueOf(tableModel.getValueAt(row, 1));
+        String erole = String.valueOf(tableModel.getValueAt(row, 2));
+        name.setText(ename);
+        pass.setText(epass);
+        if (erole.equals( "Admin")) {
+            admin.setSelected(true);
+        } else if (erole.equals( "SM")) {
+            sm.setSelected(true);
+        } else if (erole.equals( "PM")) {
+            pm.setSelected(true);
+        }
+    }//GEN-LAST:event_jTable1MouseReleased
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton add;
     private javax.swing.JRadioButton admin;
     private javax.swing.JButton delete;
+    private javax.swing.JButton edit;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;

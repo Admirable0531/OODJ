@@ -28,6 +28,7 @@ public class GeneratePurchaseOrder extends javax.swing.JFrame {
         initCombo();
         tableModel = PurchaseOrder.initializeTable(poList);
         jTable1.setModel(tableModel);
+        jTable1.setDefaultEditor(Object.class, null);
         loggedIn.setText("Currently Logged In As: " + User.getCurrentUser());
         setTitle("Generate Purchase Order");
         setLocationRelativeTo(null);
@@ -54,8 +55,15 @@ public class GeneratePurchaseOrder extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         statusBox = new javax.swing.JComboBox<>();
         delete = new javax.swing.JButton();
+        edit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jScrollPane1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jScrollPane1MouseReleased(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -68,6 +76,11 @@ public class GeneratePurchaseOrder extends javax.swing.JFrame {
                 "PO ID", "PR ID", "Status", "PM ID"
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jTable1MouseReleased(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         save.setText("Save and Exit");
@@ -106,6 +119,13 @@ public class GeneratePurchaseOrder extends javax.swing.JFrame {
             }
         });
 
+        edit.setText("Edit");
+        edit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -117,6 +137,8 @@ public class GeneratePurchaseOrder extends javax.swing.JFrame {
                         .addComponent(jButton2)
                         .addGap(18, 18, 18)
                         .addComponent(delete)
+                        .addGap(18, 18, 18)
+                        .addComponent(edit)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(save))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -152,7 +174,8 @@ public class GeneratePurchaseOrder extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(save)
                     .addComponent(jButton2)
-                    .addComponent(delete))
+                    .addComponent(delete)
+                    .addComponent(edit))
                 .addContainerGap())
         );
 
@@ -188,6 +211,28 @@ public class GeneratePurchaseOrder extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Please selected a row to delete");
         }
     }//GEN-LAST:event_deleteActionPerformed
+
+    private void editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editActionPerformed
+        int selectedRow = jTable1.getSelectedRow();
+        if(selectedRow != -1){
+            tableModel.setValueAt(prCombo.getSelectedItem(), selectedRow, 1);
+            tableModel.setValueAt(statusBox.getSelectedItem(), selectedRow, 2);
+        } else {
+            JOptionPane.showMessageDialog(this, "Please selected a row to edit");
+        }
+    }//GEN-LAST:event_editActionPerformed
+
+    private void jScrollPane1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jScrollPane1MouseReleased
+
+    }//GEN-LAST:event_jScrollPane1MouseReleased
+
+    private void jTable1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseReleased
+        int row = jTable1.getSelectedRow();
+        String prName = String.valueOf(tableModel.getValueAt(row, 1));
+        String status = String.valueOf(tableModel.getValueAt(row, 2));
+        prCombo.setSelectedItem(prName);
+        statusBox.setSelectedItem(status);
+    }//GEN-LAST:event_jTable1MouseReleased
         
     private void initCombo(){
         ArrayList<PurchaseRequisition> prList = PurchaseRequisition.loadPR();
@@ -207,6 +252,7 @@ public class GeneratePurchaseOrder extends javax.swing.JFrame {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton delete;
+    private javax.swing.JButton edit;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

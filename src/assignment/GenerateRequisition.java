@@ -23,6 +23,7 @@ public class GenerateRequisition extends javax.swing.JFrame {
         initCombo();
         tableModel = PurchaseRequisition.initializeTable(prList);
         jTable1.setModel(tableModel);
+        jTable1.setDefaultEditor(Object.class, null);
         loggedIn.setText("Currently Logged In As: " + User.getCurrentUser());
         setTitle("Generate Purchase Requisition");
         setLocationRelativeTo(null);
@@ -52,8 +53,9 @@ public class GenerateRequisition extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         saveExit = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        date = new javax.swing.JTextField();
+        dateBox = new javax.swing.JTextField();
         loggedIn = new javax.swing.JLabel();
+        edit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -74,6 +76,11 @@ public class GenerateRequisition extends javax.swing.JFrame {
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+        });
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jTable1MouseReleased(evt);
             }
         });
         jScrollPane1.setViewportView(jTable1);
@@ -109,13 +116,20 @@ public class GenerateRequisition extends javax.swing.JFrame {
 
         jLabel1.setText("Date to be acquired");
 
-        date.addActionListener(new java.awt.event.ActionListener() {
+        dateBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dateActionPerformed(evt);
+                dateBoxActionPerformed(evt);
             }
         });
 
         loggedIn.setText("Currently Logged In As: ");
+
+        edit.setText("Edit");
+        edit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -126,15 +140,17 @@ public class GenerateRequisition extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(add)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(delete)
+                        .addGap(18, 18, 18)
+                        .addComponent(edit)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(saveExit))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(16, 16, 16)
-                                .addComponent(date)
+                                .addComponent(dateBox)
                                 .addGap(148, 148, 148))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -170,7 +186,7 @@ public class GenerateRequisition extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
-                        .addComponent(date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(dateBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(loggedIn))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -178,7 +194,8 @@ public class GenerateRequisition extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(saveExit)
                     .addComponent(delete)
-                    .addComponent(add))
+                    .addComponent(add)
+                    .addComponent(edit))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -188,8 +205,8 @@ public class GenerateRequisition extends javax.swing.JFrame {
     private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
         String newPrCode = PurchaseRequisition.getNewCode(prList);
         try {
-        tableModel.addRow(new Object[]{newPrCode, itemBox.getSelectedItem().toString(), itemQuantity.getText(), date.getText(), User.getCurrentUser()});
-        prList.add(new PurchaseRequisition(newPrCode, itemBox.getSelectedItem().toString(), Integer.parseInt(itemQuantity.getText()), date.getText(), User.getCurrentUser()));
+        tableModel.addRow(new Object[]{newPrCode, itemBox.getSelectedItem().toString(), itemQuantity.getText(), dateBox.getText(), User.getCurrentUser()});
+        prList.add(new PurchaseRequisition(newPrCode, itemBox.getSelectedItem().toString(), Integer.parseInt(itemQuantity.getText()), dateBox.getText(), User.getCurrentUser()));
         } catch(Exception e) {
             JOptionPane.showMessageDialog(this, "Please make sure there are no blanks");
         }
@@ -211,9 +228,30 @@ public class GenerateRequisition extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_saveExitActionPerformed
 
-    private void dateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dateActionPerformed
+    private void dateBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dateBoxActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_dateActionPerformed
+    }//GEN-LAST:event_dateBoxActionPerformed
+
+    private void editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editActionPerformed
+        int selectedRow = jTable1.getSelectedRow();
+        if(selectedRow != -1){
+            tableModel.setValueAt(itemBox.getSelectedItem(), selectedRow, 1);
+            tableModel.setValueAt(itemQuantity.getText(), selectedRow, 2);
+            tableModel.setValueAt(dateBox.getText(), selectedRow, 3);
+        } else {
+            JOptionPane.showMessageDialog(this, "Please selected a row to edit");
+        }
+    }//GEN-LAST:event_editActionPerformed
+
+    private void jTable1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseReleased
+        int row = jTable1.getSelectedRow();
+        String itemName = String.valueOf(tableModel.getValueAt(row, 1));
+        String quantity = String.valueOf(tableModel.getValueAt(row, 2));
+        String date = String.valueOf(tableModel.getValueAt(row, 3));
+        itemBox.setSelectedItem(itemName);
+        itemQuantity.setText(quantity);
+        dateBox.setText(date);
+    }//GEN-LAST:event_jTable1MouseReleased
 
     private void initCombo(){
         ArrayList<Item> itemList = Item.loadItems();
@@ -227,8 +265,9 @@ public class GenerateRequisition extends javax.swing.JFrame {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton add;
-    private javax.swing.JTextField date;
+    private javax.swing.JTextField dateBox;
     private javax.swing.JButton delete;
+    private javax.swing.JButton edit;
     private javax.swing.JComboBox<String> itemBox;
     private javax.swing.JTextField itemQuantity;
     private javax.swing.JLabel jLabel1;

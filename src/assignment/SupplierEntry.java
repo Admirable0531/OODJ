@@ -23,6 +23,7 @@ public class SupplierEntry extends javax.swing.JFrame {
         initComponents();
         tableModel = Supplier.initializeTable(supplierList);
         jTable1.setModel(tableModel);
+        jTable1.setDefaultEditor(Object.class, null);
         setTitle("Add Supplier");
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -47,6 +48,7 @@ public class SupplierEntry extends javax.swing.JFrame {
         save = new javax.swing.JButton();
         contactInfo = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
+        edit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -67,6 +69,12 @@ public class SupplierEntry extends javax.swing.JFrame {
 
         jLabel2.setText("Supplier Name");
 
+        jScrollPane1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jScrollPane1MouseReleased(evt);
+            }
+        });
+
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
@@ -78,6 +86,11 @@ public class SupplierEntry extends javax.swing.JFrame {
                 "Code", "Name", "Contact Information"
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jTable1MouseReleased(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         Delete.setText("Delete");
@@ -102,6 +115,13 @@ public class SupplierEntry extends javax.swing.JFrame {
 
         jLabel3.setText("Contact Information");
 
+        edit.setText("Edit");
+        edit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -122,7 +142,9 @@ public class SupplierEntry extends javax.swing.JFrame {
                         .addComponent(add)
                         .addGap(18, 18, 18)
                         .addComponent(Delete)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 339, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(edit)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 249, Short.MAX_VALUE)
                         .addComponent(save)))
                 .addGap(15, 15, 15))
         );
@@ -149,7 +171,8 @@ public class SupplierEntry extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(add)
                     .addComponent(Delete)
-                    .addComponent(save))
+                    .addComponent(save)
+                    .addComponent(edit))
                 .addGap(7, 7, 7))
         );
 
@@ -189,6 +212,28 @@ public class SupplierEntry extends javax.swing.JFrame {
     private void contactInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contactInfoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_contactInfoActionPerformed
+
+    private void editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editActionPerformed
+        int selectedRow = jTable1.getSelectedRow();
+        if(selectedRow != -1){
+            tableModel.setValueAt(supplierName.getText(), selectedRow, 1);
+            tableModel.setValueAt(contactInfo.getText(), selectedRow, 2);
+        } else {
+            JOptionPane.showMessageDialog(this, "Please selected a row to edit");
+        }
+    }//GEN-LAST:event_editActionPerformed
+
+    private void jScrollPane1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jScrollPane1MouseReleased
+
+    }//GEN-LAST:event_jScrollPane1MouseReleased
+
+    private void jTable1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseReleased
+        int row = jTable1.getSelectedRow();
+        String name = String.valueOf(tableModel.getValueAt(row, 1));
+        String contact = String.valueOf(tableModel.getValueAt(row, 2));
+        supplierName.setText(name);
+        contactInfo.setText(contact);
+    }//GEN-LAST:event_jTable1MouseReleased
     
 
     
@@ -196,6 +241,7 @@ public class SupplierEntry extends javax.swing.JFrame {
     private javax.swing.JButton Delete;
     private javax.swing.JButton add;
     private javax.swing.JTextField contactInfo;
+    private javax.swing.JButton edit;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

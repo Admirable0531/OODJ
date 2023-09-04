@@ -13,6 +13,7 @@ public class ItemEntry extends javax.swing.JFrame {
         initCombo();
         tableModel = Item.initializeTable(itemList);
         jTable1.setModel(tableModel);
+        jTable1.setDefaultEditor(Object.class, null);
         setTitle("Available Items");
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -38,6 +39,7 @@ public class ItemEntry extends javax.swing.JFrame {
         itemSupplierBox = new javax.swing.JComboBox<>();
         stock = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
+        edit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -65,6 +67,11 @@ public class ItemEntry extends javax.swing.JFrame {
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+        });
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jTable1MouseReleased(evt);
             }
         });
         jScrollPane1.setViewportView(jTable1);
@@ -108,6 +115,13 @@ public class ItemEntry extends javax.swing.JFrame {
 
         jLabel6.setText("Stock");
 
+        edit.setText("Edit");
+        edit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -117,8 +131,10 @@ public class ItemEntry extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(add)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(delete)
+                        .addGap(18, 18, 18)
+                        .addComponent(edit)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(saveExit))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -153,7 +169,8 @@ public class ItemEntry extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(saveExit)
                             .addComponent(delete)
-                            .addComponent(add)))
+                            .addComponent(add)
+                            .addComponent(edit)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addGap(30, 30, 30)
@@ -212,6 +229,30 @@ public class ItemEntry extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_deleteActionPerformed
 
+    private void editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editActionPerformed
+        int selectedRow = jTable1.getSelectedRow();
+        if(selectedRow != -1){
+            tableModel.setValueAt(itemName.getText(), selectedRow, 1);
+            tableModel.setValueAt(itemPrice.getText(), selectedRow, 2);
+            tableModel.setValueAt(itemSupplierBox.getSelectedItem(), selectedRow, 3);
+            tableModel.setValueAt(stock.getText(), selectedRow, 4);
+        } else {
+            JOptionPane.showMessageDialog(this, "Please selected a row to edit");
+        }
+    }//GEN-LAST:event_editActionPerformed
+
+    private void jTable1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseReleased
+        int row = jTable1.getSelectedRow();
+        String name = String.valueOf(tableModel.getValueAt(row, 1));
+        String price = String.valueOf(tableModel.getValueAt(row, 2));
+        String supplier = String.valueOf(tableModel.getValueAt(row, 3));
+        String stocks = String.valueOf(tableModel.getValueAt(row, 4));
+        itemName.setText(name);
+        itemPrice.setText(price);
+        itemSupplierBox.setSelectedItem(supplier);
+        stock.setText(stocks);
+    }//GEN-LAST:event_jTable1MouseReleased
+
     private void initCombo(){
         ArrayList<Supplier> supplierList = Supplier.loadSuppliers();
         DefaultComboBoxModel<String> comboBoxModel = new DefaultComboBoxModel<>();
@@ -224,6 +265,7 @@ public class ItemEntry extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton add;
     private javax.swing.JButton delete;
+    private javax.swing.JButton edit;
     private javax.swing.JTextField itemName;
     private javax.swing.JTextField itemPrice;
     private javax.swing.JComboBox<String> itemSupplierBox;

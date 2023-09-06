@@ -202,6 +202,7 @@ public class UserRegistrationGUI extends javax.swing.JFrame {
     private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
         User.saveTableData(jTable1, userList);
         JOptionPane.showMessageDialog(this, "Changes saved successfully.");
+        new AdminGUI().setVisible(true);
         dispose();
     }//GEN-LAST:event_saveActionPerformed
 

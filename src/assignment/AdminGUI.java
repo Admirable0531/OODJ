@@ -103,6 +103,7 @@ public class AdminGUI extends javax.swing.JFrame {
 
     private void addUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addUserActionPerformed
         new UserRegistrationGUI().setVisible(true);
+        dispose();
     }//GEN-LAST:event_addUserActionPerformed
 
     private void salesManagerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salesManagerActionPerformed

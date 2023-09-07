@@ -2,18 +2,22 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package assignment;
+package GUI;
+
+import User.User;
+import User.UserRegistrationGUI;
 
 /**
  *
  * @author blaze
  */
 public class AdminGUI extends javax.swing.JFrame {
-
+    private User user;
     /**
      * Creates new form AdminGUI
      */
-    public AdminGUI() {
+    public AdminGUI(User user) {
+        this.user = user;
         initComponents();
         setTitle("Admin Panel");
         setLocationRelativeTo(null);
@@ -102,12 +106,12 @@ public class AdminGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addUserActionPerformed
-        new UserRegistrationGUI().setVisible(true);
+        new UserRegistrationGUI(user).setVisible(true);
         dispose();
     }//GEN-LAST:event_addUserActionPerformed
 
     private void salesManagerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salesManagerActionPerformed
-        new SMGUI().setVisible(true);
+        new SMGUI(user).setVisible(true);
         dispose();
         
     }//GEN-LAST:event_salesManagerActionPerformed
@@ -118,7 +122,7 @@ public class AdminGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_logOutButtonActionPerformed
 
     private void purchaseManagerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_purchaseManagerActionPerformed
-        new PMGUI().setVisible(true);
+        new PMGUI(user).setVisible(true);
         dispose();
     }//GEN-LAST:event_purchaseManagerActionPerformed
 

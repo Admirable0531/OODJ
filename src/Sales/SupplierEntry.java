@@ -1,5 +1,6 @@
-package assignment;
+package Sales;
 
+import Main_and_others.Supplier;
 import java.io.BufferedWriter;
 import java.io.BufferedReader;
 import java.io.FileReader;

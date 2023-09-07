@@ -1,8 +1,11 @@
-package assignment;
+package GUI;
 
+import User.User;
+import static User.User.loadUsers;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.swing.*;
 
 public class LoginGUI extends javax.swing.JFrame {
@@ -16,6 +19,7 @@ public class LoginGUI extends javax.swing.JFrame {
         setTitle("Login");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
+        
     }
 
     /**
@@ -108,24 +112,31 @@ public class LoginGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_idFieldActionPerformed
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
-        String user = User.authenticateUser(idField.getText(), passField.getText());
+        User user = User.authenticateUser(idField.getText(), passField.getText());
         if (user == null){
             JOptionPane.showMessageDialog(this, "ERROR: Incorrect Credentials.");
         } else{
-            if(user.equals("Admin")){
-                User.setCurrentUser(idField.getText());
-                new AdminGUI().setVisible(true);
-                dispose();
-            } else if(user.equals("SM")) {
-                User.setCurrentUser(idField.getText());
-                new SMGUI().setVisible(true);
-                dispose();
-            } else if(user.equals("PM")) {
-                User.setCurrentUser(idField.getText());
-                new PMGUI().setVisible(true);
-                dispose();
+                switch (user.getRole()) {
+                case "Admin":
+                    User.setCurrentUser(idField.getText());
+                    new AdminGUI(user).setVisible(true);
+                    dispose();
+                    break;
+                case "sm":
+                    User.setCurrentUser(idField.getText());
+                    new SMGUI(user).setVisible(true);
+                    dispose();
+                    break;
+                case "pm":
+                    User.setCurrentUser(idField.getText());
+                    new PMGUI(user).setVisible(true);
+                    dispose();
+                    break;
+                default:
+                    break;
             }
         }
+        
     }//GEN-LAST:event_loginButtonActionPerformed
 
     private void passFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passFieldActionPerformed

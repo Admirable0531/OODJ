@@ -2,8 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package assignment;
+package Purchase;
 
+import Main_and_others.Item;
+import Main_and_others.Supplier;
 import java.util.ArrayList;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -12,15 +14,22 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author theli
  */
-public class DisplayRequisition extends javax.swing.JFrame {
+public class ViewItemAndSupplier extends javax.swing.JFrame {
     private JTable itemTable;
-    private ArrayList<PurchaseRequisition> prList = PurchaseRequisition.loadPR();
-    
-    public DisplayRequisition() {
+    private DefaultTableModel tableModel;
+    private ArrayList<Item> itemList = Item.loadItems();
+    private ArrayList<Supplier> supplierList = Supplier.loadSuppliers();
+
+    /**
+     * Creates new form ViewItemAndSupplier
+     */
+    public ViewItemAndSupplier() {
         initComponents();
-        jTable1.setModel(PurchaseRequisition.initializeTable(prList));
+        jTable1.setModel(Item.initializeTable(itemList));
         jTable1.setDefaultEditor(Object.class, null);
-        setTitle("Display Purchase Requisition");
+        jTable2.setModel(Supplier.initializeTable(supplierList));
+        jTable2.setDefaultEditor(Object.class, null);
+        setTitle("Display Item and Suppliers");
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setVisible(true);
@@ -37,6 +46,8 @@ public class DisplayRequisition extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -49,11 +60,11 @@ public class DisplayRequisition extends javax.swing.JFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "PR Code", "Item Code", "Quantity", "Date", "Sales Manager Code"
+                "Code", "Name", "Price", "Quantity", "Stock"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -61,6 +72,19 @@ public class DisplayRequisition extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(jTable1);
+
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Code", "Name", "Contact Information"
+            }
+        ));
+        jScrollPane2.setViewportView(jTable2);
 
         jButton1.setText("Exit");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -76,7 +100,10 @@ public class DisplayRequisition extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 552, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 364, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jButton1)))
@@ -86,7 +113,9 @@ public class DisplayRequisition extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane2)
+                    .addComponent(jScrollPane1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addContainerGap())
@@ -102,10 +131,13 @@ public class DisplayRequisition extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
     // End of variables declaration//GEN-END:variables
 }

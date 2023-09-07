@@ -1,4 +1,4 @@
-package assignment;
+package Main_and_others;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

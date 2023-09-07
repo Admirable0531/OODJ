@@ -1,13 +1,22 @@
-package assignment;
+package GUI;
 
+import Sales.DailySalesEntry;
+import Purchase.DisplayRequisition;
+import Sales.GenerateRequisition;
+import Sales.ItemEntry;
+import Purchase.ListPurchaseOrders;
+import Sales.SupplierEntry;
+import User.User;
 import java.util.ArrayList;
 
 public class SMGUI extends javax.swing.JFrame {
+    private User user;
 
     /**
      * Creates new form SMGui
      */
-    public SMGUI() {
+    public SMGUI(User user) {
+        this.user = user;
         initComponents();
         setTitle("Sales Manager");
         setLocationRelativeTo(null);

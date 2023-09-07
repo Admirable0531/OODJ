@@ -2,18 +2,26 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package assignment;
+package GUI;
+
+import Purchase.DisplayRequisition;
+import Purchase.GeneratePurchaseOrder;
+import Purchase.ListPurchaseOrders;
+import Purchase.ViewItemAndSupplier;
+import User.User;
 
 /**
  *
  * @author blaze
  */
 public class PMGUI extends javax.swing.JFrame {
+    private User user;
 
     /**
      * Creates new form PMGui
      */
-    public PMGUI() {
+    public PMGUI(User user) {
+        this.user = user;
         initComponents();
         setTitle("Purchase Manager");
         setLocationRelativeTo(null);

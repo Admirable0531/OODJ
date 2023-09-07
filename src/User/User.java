@@ -1,4 +1,4 @@
-package assignment;
+package User;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -113,20 +113,16 @@ public class User {
         return "U" + formattedIncrementedValue;
     }
     
-    public static String authenticateUser(String userID, String password){
-        String userTxt = "src\\assignment\\users.txt";
+    public static User authenticateUser(String userID, String password){
+        String userTxt = "src\\Database\\users.txt";
         try (BufferedReader reader = new BufferedReader(new FileReader(userTxt))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] userData = line.split(", ");
-
-                String storedUsername = userData[0];
-                String storedPassword = userData[1];
-                String role = userData[2];
-                String name = userData[3];
-
-                if (userID.equals(storedUsername) && password.equals(storedPassword)) {
-                    return role;
+                User auth =new User (userData[0],userData[1],userData[2],userData[3]);
+                
+                if (auth.getUserCode().equals(userID) && auth.getPassword().equals(password)) {
+                    return auth;
                 }
             }
 

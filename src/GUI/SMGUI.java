@@ -20,7 +20,7 @@ public class SMGUI extends javax.swing.JFrame {
     public SMGUI(SM sm) {
         this.sm = sm;
         initComponents();
-        setTitle("Sales Manager: " + sm.getUsername());
+        setTitle("Sales Manager: " + sm.getUserCode());
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setVisible(true);
@@ -28,7 +28,7 @@ public class SMGUI extends javax.swing.JFrame {
     public SMGUI(Admin admin) {
         this.admin = admin;
         initComponents();
-        setTitle("Admin: "+ admin.getUsername());
+        setTitle("Admin: "+ admin.getUserCode());
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setVisible(true);

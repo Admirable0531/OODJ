@@ -106,7 +106,7 @@ public class PurchaseRequisition {
         
         
     public static void saveToFile(ArrayList<PurchaseRequisition> prList) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("src\\assignment\\pr.txt"))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("src\\Database\\pr.txt"))) {
             for (PurchaseRequisition pr : prList) {
                 String line = pr.getPrCode() + ", " + pr.getItemCode() + ", " + pr.getQuantity() + ", " + pr.getDateRequired() + ", " + pr.getSmID();
                 writer.write(line);

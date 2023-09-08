@@ -13,8 +13,7 @@ public class User {
     private String userCode;
     private String username;
     private String password;
-    private String role;
-    private static String currentUser;
+    protected String role;
     private static ArrayList<User> userList;
     private static DefaultTableModel tableModel;
     
@@ -24,6 +23,12 @@ public class User {
         this.password = password;
         this.role = role;
         
+    }
+    public User(User user){
+        this.userCode = user.getUserCode();
+        this.username = user.getUsername();
+        this.password = user.getPassword();
+
     }
 
     public String getUserCode() {
@@ -60,7 +65,7 @@ public class User {
     
     public static ArrayList loadUsers(){
         userList = new ArrayList<>();
-        String usersTxt = "src\\assignment\\users.txt";
+        String usersTxt = "src\\Database\\users.txt";
         try (BufferedReader reader = new BufferedReader(new FileReader(usersTxt))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -88,7 +93,7 @@ public class User {
     }
     
     public static void saveToFile(ArrayList<User> userList) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("src\\assignment\\users.txt"))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("src\\Database\\users.txt"))) {
             for (User user : userList) {
                 String line = user.getUserCode() + ", " + user.getPassword() + ", " + user.getRole() + ", " + user.getUsername();
                 writer.write(line);
@@ -136,14 +141,6 @@ public class User {
         
     }
     
-    public static void setCurrentUser(String userID) {
-        currentUser = userID;
-    }
-
-    // Get the current user
-    public static String getCurrentUser() {
-        return currentUser;
-    }
     
     public static DefaultTableModel initializeTable(ArrayList<User> userList) {
         // Create the table model with column headers

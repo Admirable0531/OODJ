@@ -16,17 +16,19 @@ public class GenerateRequisition extends javax.swing.JFrame {
     private JTable itemTable;
     private DefaultTableModel tableModel;
     private ArrayList<PurchaseRequisition> prList = PurchaseRequisition.loadPR();
+    private String loggedin;
 
     /**
      * Creates new form DisplayRequisition
      */
-    public GenerateRequisition() {
+    public GenerateRequisition(String currentid) {
+        this.loggedin = currentid;
         initComponents();
         initCombo();
         tableModel = PurchaseRequisition.initializeTable(prList);
         jTable1.setModel(tableModel);
         jTable1.setDefaultEditor(Object.class, null);
-        loggedIn.setText("Currently Logged In As: " + User.getCurrentUser());
+        loggedIn.setText("Currently Logged In As: " + loggedin);
         setTitle("Generate Purchase Requisition");
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -207,8 +209,8 @@ public class GenerateRequisition extends javax.swing.JFrame {
     private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
         String newPrCode = PurchaseRequisition.getNewCode(prList);
         try {
-        tableModel.addRow(new Object[]{newPrCode, itemBox.getSelectedItem().toString(), itemQuantity.getText(), dateBox.getText(), User.getCurrentUser()});
-        prList.add(new PurchaseRequisition(newPrCode, itemBox.getSelectedItem().toString(), Integer.parseInt(itemQuantity.getText()), dateBox.getText(), User.getCurrentUser()));
+        tableModel.addRow(new Object[]{newPrCode, itemBox.getSelectedItem().toString(), itemQuantity.getText(), dateBox.getText(), loggedin});
+        prList.add(new PurchaseRequisition(newPrCode, itemBox.getSelectedItem().toString(), Integer.parseInt(itemQuantity.getText()), dateBox.getText(), loggedin));
         } catch(Exception e) {
             JOptionPane.showMessageDialog(this, "Please make sure there are no blanks");
         }

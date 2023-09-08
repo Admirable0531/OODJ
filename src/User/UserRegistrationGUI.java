@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
 public class UserRegistrationGUI extends javax.swing.JFrame {
-    private User user;
+    private Admin Admin;
     private JTable userTable;
     private DefaultTableModel tableModel;
     private ArrayList<User> userList = User.loadUsers();
@@ -18,8 +18,8 @@ public class UserRegistrationGUI extends javax.swing.JFrame {
     /**
      * Creates new form UserRegistrationGUI
      */
-    public UserRegistrationGUI(User user) {
-        this.user = user;
+    public UserRegistrationGUI(Admin Admin) {
+        this.Admin = Admin;
         initComponents();
         tableModel = User.initializeTable(userList);
         jTable1.setModel(tableModel);
@@ -205,7 +205,7 @@ public class UserRegistrationGUI extends javax.swing.JFrame {
     private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
         User.saveTableData(jTable1, userList);
         JOptionPane.showMessageDialog(this, "Changes saved successfully.");
-        new AdminGUI(user).setVisible(true);
+        new AdminGUI(Admin).setVisible(true);
         dispose();
     }//GEN-LAST:event_saveActionPerformed
 

@@ -71,7 +71,7 @@ public class PurchaseOrder {
     
     public static ArrayList loadPO(){
         poList = new ArrayList<>();
-        String poTxt = "src\\assignment\\po.txt";
+        String poTxt = "src\\Database\\po.txt";
         try (BufferedReader reader = new BufferedReader(new FileReader(poTxt))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -94,7 +94,7 @@ public class PurchaseOrder {
         
         
     public static void saveToFile(ArrayList<PurchaseOrder> poList) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("src\\assignment\\po.txt"))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("src\\Database\\po.txt"))) {
             for (PurchaseOrder po : poList) {
                 String line = po.getPoCode() + ", " + po.getPrCode() + ", " + po.getStatus() + ", " + po.getPmCode();
                 writer.write(line);

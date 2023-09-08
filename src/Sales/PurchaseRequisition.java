@@ -82,7 +82,7 @@ public class PurchaseRequisition {
     
     public static ArrayList loadPR(){
         prList = new ArrayList<>();
-        String prTxt = "src\\assignment\\pr.txt";
+        String prTxt = "src\\Database\\pr.txt";
         try (BufferedReader reader = new BufferedReader(new FileReader(prTxt))) {
             String line;
             while ((line = reader.readLine()) != null) {

@@ -21,18 +21,19 @@ public class GeneratePurchaseOrder extends javax.swing.JFrame {
     private JTable itemTable;
     private DefaultTableModel tableModel;
     private ArrayList<PurchaseOrder> poList = PurchaseOrder.loadPO();
-
+    private String loggedin;
     /**
      * Creates new form GeneratePurchaseOrder
      */
 
-    public GeneratePurchaseOrder() {
+    public GeneratePurchaseOrder(String currentid) {
+        this.loggedin = currentid;
         initComponents();
         initCombo();
         tableModel = PurchaseOrder.initializeTable(poList);
         jTable1.setModel(tableModel);
         jTable1.setDefaultEditor(Object.class, null);
-        loggedIn.setText("Currently Logged In As: " + User.getCurrentUser());
+        loggedIn.setText("Currently Logged In As: " + loggedin);
         setTitle("Generate Purchase Order");
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -194,8 +195,8 @@ public class GeneratePurchaseOrder extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         String newPoCode = PurchaseOrder.getNewCode(poList);
         try {
-            tableModel.addRow(new Object[]{newPoCode, prCombo.getSelectedItem().toString(), statusBox.getSelectedItem().toString(), User.getCurrentUser()});
-            poList.add(new PurchaseOrder(newPoCode, prCombo.getSelectedItem().toString(), statusBox.getSelectedItem().toString(), User.getCurrentUser()));
+            tableModel.addRow(new Object[]{newPoCode, prCombo.getSelectedItem().toString(), statusBox.getSelectedItem().toString(), loggedin});
+            poList.add(new PurchaseOrder(newPoCode, prCombo.getSelectedItem().toString(), statusBox.getSelectedItem().toString(), loggedin));
         } catch(Exception e) {
             JOptionPane.showMessageDialog(this, "Please make sure there are no blanks");
         }

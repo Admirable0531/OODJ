@@ -55,7 +55,7 @@ public class Supplier {
     
     public static ArrayList loadSuppliers(){
         supplierList = new ArrayList<>();
-        String supplierTxt = "src\\assignment\\supplier.txt";
+        String supplierTxt = "src\\Database\\supplier.txt";
         try (BufferedReader reader = new BufferedReader(new FileReader(supplierTxt))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -75,7 +75,7 @@ public class Supplier {
     }
     
     public static void saveToFile(ArrayList<Supplier> supplierList) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("src\\assignment\\supplier.txt"))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("src\\Database\\supplier.txt"))) {
             for (Supplier supplier : supplierList) {
                 String line = supplier.getSupplierCode() + ", " + supplier.getSupplierName() + ", " + supplier.getContactInformation();
                 writer.write(line);

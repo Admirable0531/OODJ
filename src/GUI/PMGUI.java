@@ -8,26 +8,34 @@ import Purchase.DisplayRequisition;
 import Purchase.GeneratePurchaseOrder;
 import Purchase.ListPurchaseOrders;
 import Purchase.ViewItemAndSupplier;
-import User.User;
+import User.Admin;
+import User.PM;
+
 
 /**
  *
  * @author blaze
  */
-public class PMGUI extends javax.swing.JFrame {
-    private User user;
-
+public class PMGUI extends  javax.swing.JFrame{
+    private PM pm;
+    private Admin admin;
     /**
      * Creates new form PMGui
      */
-    public PMGUI(User user) {
-        this.user = user;
+    public PMGUI(PM pm) {
+        this.pm = pm;
         initComponents();
-        setTitle("Purchase Manager");
+        setTitle("Purchase Manager: " + pm.getUsername());
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
-
+    public PMGUI(Admin admin) {
+        this.admin = admin;
+        initComponents();
+        setTitle("Admin: " + admin.getUsername());
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -128,7 +136,7 @@ public class PMGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        new GeneratePurchaseOrder().setVisible(true);
+        new GeneratePurchaseOrder(this.getTitle()).setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed

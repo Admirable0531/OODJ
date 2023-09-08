@@ -73,7 +73,7 @@ public class Item {
     
     public static ArrayList loadItems(){
         itemList = new ArrayList<>();
-        String itemsTxt = "src\\assignment\\items.txt";
+        String itemsTxt = "src\\Database\\items.txt";
         try (BufferedReader reader = new BufferedReader(new FileReader(itemsTxt))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -97,7 +97,7 @@ public class Item {
         
         
     public static void saveToFile(ArrayList<Item> itemList) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("src\\assignment\\items.txt"))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("src\\Database\\items.txt"))) {
             for (Item item : itemList) {
                 String line = item.getItemCode() + ", " + item.getItemName() + ", " + item.getPrice() + ", " + item.getSupplier() + ", " + item.getStock();
                 writer.write(line);

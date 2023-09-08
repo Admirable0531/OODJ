@@ -1,6 +1,7 @@
 package GUI;
 
-import User.User;
+import User.*;
+
 import static User.User.loadUsers;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -118,18 +119,15 @@ public class LoginGUI extends javax.swing.JFrame {
         } else{
                 switch (user.getRole()) {
                 case "Admin":
-                    User.setCurrentUser(idField.getText());
-                    new AdminGUI(user).setVisible(true);
+                    Admin.CAdminGUI(user);
                     dispose();
                     break;
                 case "sm":
-                    User.setCurrentUser(idField.getText());
-                    new SMGUI(user).setVisible(true);
+                    SM.CSMGUI(user);
                     dispose();
                     break;
                 case "pm":
-                    User.setCurrentUser(idField.getText());
-                    new PMGUI(user).setVisible(true);
+                    PM.CPMGUI(user);
                     dispose();
                     break;
                 default:

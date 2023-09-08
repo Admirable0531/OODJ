@@ -67,7 +67,7 @@ public class Daily {
     
     public static ArrayList loadDaily(){
         dailyList = new ArrayList<>();
-        String dailyTxt = "src\\assignment\\daily.txt";
+        String dailyTxt = "src\\Database\\daily.txt";
         try (BufferedReader reader = new BufferedReader(new FileReader(dailyTxt))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -90,7 +90,7 @@ public class Daily {
         
         
     public static void saveToFile(ArrayList<Daily> dailyList) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("src\\assignment\\daily.txt"))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("src\\Database\\daily.txt"))) {
             for (Daily daily : dailyList) {
                 String line = daily.getDailyCode() + ", " + daily.getItemCode() + ", " + daily.getQuantity() + ", " + daily.getSalesDate();
                 writer.write(line);

@@ -4,6 +4,7 @@
  */
 package GUI;
 
+import User.Admin;
 import User.User;
 import User.UserRegistrationGUI;
 
@@ -11,13 +12,13 @@ import User.UserRegistrationGUI;
  *
  * @author blaze
  */
-public class AdminGUI extends javax.swing.JFrame {
-    private User user;
+public class AdminGUI extends  javax.swing.JFrame{
+    private Admin admin;
     /**
      * Creates new form AdminGUI
      */
-    public AdminGUI(User user) {
-        this.user = user;
+    public AdminGUI(Admin admin) {
+        this.admin =admin;
         initComponents();
         setTitle("Admin Panel");
         setLocationRelativeTo(null);
@@ -106,12 +107,12 @@ public class AdminGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addUserActionPerformed
-        new UserRegistrationGUI(user).setVisible(true);
+        new UserRegistrationGUI(admin).setVisible(true);
         dispose();
     }//GEN-LAST:event_addUserActionPerformed
 
     private void salesManagerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salesManagerActionPerformed
-        new SMGUI(user).setVisible(true);
+        new SMGUI(admin).setVisible(true);
         dispose();
         
     }//GEN-LAST:event_salesManagerActionPerformed
@@ -122,7 +123,7 @@ public class AdminGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_logOutButtonActionPerformed
 
     private void purchaseManagerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_purchaseManagerActionPerformed
-        new PMGUI(user).setVisible(true);
+        new PMGUI(admin).setVisible(true);
         dispose();
     }//GEN-LAST:event_purchaseManagerActionPerformed
 

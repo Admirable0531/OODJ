@@ -122,11 +122,11 @@ public class LoginGUI extends javax.swing.JFrame {
                     Admin.CAdminGUI(user);
                     dispose();
                     break;
-                case "sm":
+                case "SM":
                     SM.CSMGUI(user);
                     dispose();
                     break;
-                case "pm":
+                case "PM":
                     PM.CPMGUI(user);
                     dispose();
                     break;

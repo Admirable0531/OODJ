@@ -117,7 +117,7 @@ public class LoginGUI extends javax.swing.JFrame {
         if (user == null){
             JOptionPane.showMessageDialog(this, "ERROR: Incorrect Credentials.");
         } else{
-                switch (user.getRole()) {
+                switch (user.getRole().toLowerCase()) {
                 case "Admin":
                     Admin.CAdminGUI(user);
                     dispose();
